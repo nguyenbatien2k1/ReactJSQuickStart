@@ -4,6 +4,7 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 
 import userService from '../../services/userService';
+import ModalUser from './ModalUser';
 
 import './UserManage.scss';
 
@@ -13,7 +14,8 @@ class UserManage extends Component {
         super(props);
 
         this.state = {
-            arrUsers: []
+            arrUsers: [],
+            isOpenModal: false,
         }
     }
 
@@ -26,12 +28,32 @@ class UserManage extends Component {
         }
     }
 
+    handleBtnAddNewUser = () => {
+        this.setState({
+            isOpenModal : true,
+        })
+    }
 
+    toggleModalUser = () => {
+        this.setState({
+            isOpenModal: !this.state.isOpenModal,
+        })
+    }
     render() {
         let arrUsers = this.state.arrUsers;
         return (
             <div className='users-container'>
+                <ModalUser
+                    isOpenModal = {this.state.isOpenModal}
+                    toggleFromParent = {this.toggleModalUser}
+                />
                 <div className="title text-center">Tien Basic</div>
+                <div className='mx-1'>
+                    <button className='btn btn-primary px-3' 
+                            onClick={(e) => this.handleBtnAddNewUser(e)}>
+                                <i className="fas fa-plus"></i> Add new user
+                    </button>
+                </div>
                 <div className='users-table mt-3 mx-1'>
                 <table id="customers">
                     <tbody>
@@ -45,7 +67,7 @@ class UserManage extends Component {
                         {
                             arrUsers && arrUsers.map((arrUser, index) => {
                                 return (
-                                    <Fragment>
+                                    <Fragment key={index}>
                                         <tr>
                                             <td>{arrUser.email}</td>
                                             <td>{arrUser.firstName}</td>

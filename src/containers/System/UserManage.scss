@@ -46,3 +46,31 @@
       color: red;
     }
   }
+
+  .modal-user-container {
+    .modal-content button {
+      background-color: transparent !important;
+      border: none;
+      outline: none;
+      font-size: 32px;
+      color: white;
+    }
+
+    .modal-user-body {
+
+      .input-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 8px 0;
+  
+        input {
+          border-radius: 4px;
+          height: 30px;
+          border: 1px solid black;
+          outline: none;
+          padding: 0 8px;
+        }
+      }
+    }
+  }
