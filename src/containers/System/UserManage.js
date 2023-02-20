@@ -20,6 +20,10 @@ class UserManage extends Component {
     }
 
     async componentDidMount() {
+        await this.getAllUsersFromReact();
+    }
+
+    getAllUsersFromReact = async () => {
         let response = await userService.getAllUsers('ALL');
         if(response && response.errCode === 0) {
             this.setState({
@@ -39,6 +43,25 @@ class UserManage extends Component {
             isOpenModal: !this.state.isOpenModal,
         })
     }
+
+    createNewUser = async (data) => {
+        try {
+            let response = await userService.createNewUser(data);
+            if(response && response.errCode !== 0) {
+                alert(response.errMessage);
+            }
+            else {
+                await this.getAllUsersFromReact();
+                this.setState({
+                    isOpenModal: false
+                })
+            }
+        } catch (error) {
+            console.log(error)
+        }
+
+    }
+
     render() {
         let arrUsers = this.state.arrUsers;
         return (
@@ -46,6 +69,7 @@ class UserManage extends Component {
                 <ModalUser
                     isOpenModal = {this.state.isOpenModal}
                     toggleFromParent = {this.toggleModalUser}
+                    createNewUser = {this.createNewUser}
                 />
                 <div className="title text-center">Tien Basic</div>
                 <div className='mx-1'>
