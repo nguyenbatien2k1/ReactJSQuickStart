@@ -11,6 +11,14 @@ const userService = {
 
     createNewUser(data) {
         return axios.post(`/api/create-new-user`, data);
+    },
+
+    deleteUser(id) {
+        return axios.delete(`/api/delete-user`, {
+            data: {
+                id
+            }
+        });
     }
 
 }
