@@ -13,6 +13,10 @@ const userService = {
         return axios.post(`/api/create-new-user`, data);
     },
 
+    editUser(user) {
+        return axios.put(`/api/edit-user`, user);
+    },
+
     deleteUser(id) {
         return axios.delete(`/api/delete-user`, {
             data: {
