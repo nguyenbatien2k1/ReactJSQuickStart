@@ -1,4 +1,28 @@
 {
+    "homeheader": {
+        "specialty": "Medial specialty",
+        "search-doctor": "Find a doctor by specialty",
+        "health-facility": "Health facility",
+        "choose-hospital-clinic": "Choose hospital clinic",
+        "doctor": "Doctor",
+        "choose-good-doctor": "Choose a good doctor",
+        "examination-package": "Examination package",
+        "general-health-check": "General health check",
+        "support": "Support"
+    },
+    "banner": {
+        "title1": "MEDICIAL BACKGROUND",
+        "title2": "COMPREHENSIVE HEALTH CARE",
+        "specialistexamination": "Specialist examination",
+        "remoteexamination": "Remote examination",
+        "generalexamination": "General examination",
+        "medicaltest": "Medical test",
+        "mentalhealth": "Mental health",
+        "dentalexamination": "Dental examination",
+        "surgerypack": "Gurgery pack",
+        "medicalproducts": "Medical products",
+        "businesshealth": "Business health"
+    },
     "common": {
         "add": "Add",
         "edit": "Edit",
