@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import HomeHeader from './HomeHeader';
+import Specialty from './Section/Specialty';
 
 class HomePage extends Component {
 
     render() {
 
         return (
-            <HomeHeader />
+            <React.Fragment>
+                <HomeHeader />
+                <Specialty />
+            </React.Fragment>
         );
     }
 

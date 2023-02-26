@@ -1,0 +1,19 @@
+.section-specialty {
+    height: 500px;
+    background-color: yellowgreen;
+    border: 1px solid red;
+
+    .section-content {
+        height: 100%;
+    }
+}
+
+// override slider
+
+.slick-prev {
+    left: 0 !important;
+}
+
+.slick-next {
+    right: 0 !important;
+}
