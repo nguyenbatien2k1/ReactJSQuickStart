@@ -29,6 +29,39 @@
     &.section-handbook {
         background: #fff;
     }
+
+    &.section-about {
+        background: #f5f5f5;
+        height: 450px;
+        padding: 16px 64px;
+
+        .section-about-header  {
+            margin-bottom: 18px;
+            color: black;
+            font-size: 24px;
+            font-weight: 600;
+        }
+        
+        .section-about-content  {
+            display: flex;
+            align-items: center;
+            width: 100%;
+
+            .content-left {
+                width: 50%;
+            }
+
+            .content-right {
+                width: 50%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                font-style: italic;
+            }
+        }
+    }
+
 }
 
 .section-container {
@@ -111,14 +144,6 @@
             }
 
         }
-
-        // .bg-image.section-outstanding-doctor {
-        //     background-image: url('../../assets/outstandingdoctor/outstanding-doctor.jpg');
-        //     border: 1px solid #eee;
-        //     background-color: #fff;
-        //     width: 278px;
-        //     height: 245px;
-        // }
     }
 
     .slick-prev { 
@@ -146,4 +171,24 @@
             opacity: 1;
         }
     }  
+}
+
+.homefooter {
+    background-color: #64b9e5;
+    color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height:80px;
+    padding-bottom: 0;
+
+    a {
+        color: black;
+
+        &:hover {
+            color: #fff;
+        }
+    }
+
+
 }
