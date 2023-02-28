@@ -11,12 +11,17 @@
 
     .languages {
 
+        .welcome {
+
+        }
+
         .language-vi, .language-en {
             cursor: pointer;
             opacity: 0.4;
         }
 
         .language-vi {
+            margin-left: 24px ;
 
             &.active {
                 color: orangered;

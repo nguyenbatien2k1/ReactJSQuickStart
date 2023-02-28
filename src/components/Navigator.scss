@@ -69,10 +69,15 @@
                         }
                     }
                 }
-                &.active span {
+                &.active {
                     font-weight: 500;
-                    color: $colormain;
+                    background-color: #ededed;
+
+                    a {
+                        color: blueviolet;
+                    }
                 }
+                
                 &:hover {
                     background-color: darken($bg-menu-color, 3);
                     .sub-menu-list {
