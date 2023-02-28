@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { LANGUAGES } from '../../../utils';
 
 import { userService } from '../../../services';
+import * as actions from "../../../store/actions";
 
 class UserRedux extends Component {
 
@@ -19,15 +20,24 @@ class UserRedux extends Component {
     
 
     async componentDidMount() {
-        try {
-            let res = await userService.getAllCodeService('gender');
-            if(res && res.errCode === 0) {
-                this.setState({
-                    genderArr: res.data,
-                })
-            }
-        } catch (error) {
-            console.log(error);
+        this.props.getGenderStart();
+        // try {
+        //     let res = await userService.getAllCodeService('gender');
+        //     if(res && res.errCode === 0) {
+        //         this.setState({
+        //             genderArr: res.data,
+        //         })
+        //     }
+        // } catch (error) {
+        //     console.log(error);
+        // }
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if(prevProps.genderRedux !== this.props.genderRedux) {
+            this.setState({
+                genderArr: this.props.genderRedux
+            })
         }
     }
 
@@ -48,7 +58,7 @@ class UserRedux extends Component {
                     <div className='container'>
                         <div className='col-12 text-center my-3 display-6'><FormattedMessage id="manage-user.add-new-user" /></div>
                         <div className='row'>
-                        <form>
+                        <form className='col-12'>
                             <div className="row mb-3">
                                 <div className="form-group col-6">
                                     <label htmlFor="inputEmail4"><FormattedMessage id="manage-user.email" /></label>
@@ -156,11 +166,13 @@ class UserRedux extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
+        genderRedux: state.admin.genders
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
+        getGenderStart: () => dispatch(actions.fetchGenderStart()),
     };
 };
 
