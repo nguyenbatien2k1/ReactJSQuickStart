@@ -23,8 +23,10 @@ const userService = {
                 id
             }
         });
+    },
+    getAllCodeService(inputType) {
+        return axios.get(`/api/allcode?type=${inputType}`)
     }
-
 }
 
 export default userService;
