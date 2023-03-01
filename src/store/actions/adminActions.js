@@ -34,7 +34,7 @@ export const fetchGenderSuccess = (genderData) => ({
 })
 
 export const fetchGenderFail = () => ({
-    type: actionTypes.FETCH_GENDER_FAIL
+    type: actionTypes.FETCH_GENDER_FAILED
 })
 
 
@@ -62,7 +62,7 @@ export const fetchPositionSuccess = (positionData) => ({
 })
 
 export const fetchPositionFail = () => ({
-    type: actionTypes.FETCH_POSITION_FAIL
+    type: actionTypes.FETCH_POSITION_FAILED
 })
 
 
@@ -90,6 +90,31 @@ export const fetchRoleIdSuccess = (RoleIdData) => ({
 })
 
 export const fetchRoleIdFail = () => ({
-    type: actionTypes.FETCH_ROLEID_FAIL
+    type: actionTypes.FETCH_ROLEID_FAILED
 })
 
+// create user
+export const createNewUser = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await userService.createNewUser(data);
+            if(res && res.errCode === 0) {
+                dispatch(createUserSucess());
+            }
+            else {  
+                dispatch(createUserFail());
+            }
+        } catch (error) {
+            dispatch(createUserFail());
+            console.log(error);
+        }
+    }
+}
+
+export const createUserSucess = () => ({
+    type: actionTypes.CREATE_USER_SUCCESS,
+})
+
+export const createUserFail = () => ({
+    type: actionTypes.CREATE_USER_FAILED
+})

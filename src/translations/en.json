@@ -64,6 +64,7 @@
         "roleId": "Role ID",
         "check-me-out": "Check me out",
         "image": "Image",
-        "sign-in": "Sign in"
+        "sign-in": "Sign in",
+        "upload-image": "Upload Image"
     }
 }
