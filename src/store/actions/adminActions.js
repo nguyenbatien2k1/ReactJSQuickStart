@@ -178,3 +178,31 @@ export const deleteUserFail = () => ({
     type: actionTypes.DELETE_USER_FAILED
 })
 
+// edit user
+export const editUserStart = (user) => {
+    return async(dispatch, getState) => {
+        try {
+            let res = await userService.editUser(user);
+            if(res && res.errCode === 0) {
+                toast.success('Edit user success!');
+                dispatch(editUserSuccess());
+                dispatch(getAllUsersStart());
+            }
+            else {
+                toast.success('Edit user failed!')
+                dispatch(editUserFail());
+            }
+        } catch (error) {
+            console.log(error)
+            dispatch(editUserFail());
+        }
+    }
+}
+
+export const editUserSuccess = () => ({
+    type: actionTypes.EDIT_USER_SUCCESS
+})
+
+export const editUserFail = () => ({
+    type: actionTypes.EDIT_USER_FAILED
+})
