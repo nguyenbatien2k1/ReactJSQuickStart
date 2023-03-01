@@ -7,6 +7,7 @@ import 'react-image-lightbox/style.css';
 import './UserRedux.scss'
 
 import * as actions from "../../../store/actions";
+import TableManageUser from './TableManageUser';
 
 class UserRedux extends Component {
 
@@ -64,6 +65,21 @@ class UserRedux extends Component {
             this.setState({
                 roleIdArr: this.props.roleIdRedux,
                 roleId: roleIds && roleIds.length > 0 ? roleIds[0].key : ''
+            })
+        }
+
+        if(prevProps.usersRedux !== this.props.usersRedux) {
+            this.setState({
+                email: '',
+                password: '',
+                firstName: '',
+                lastName: '',
+                address: '',
+                phonenumber: '',
+                gender: '',
+                position: '',
+                roleId: '',
+                image: ''
             })
         }
     }
@@ -145,7 +161,7 @@ class UserRedux extends Component {
                     Tien Basic
                 </div>
                 <div className='user-redux-body'>
-                    <div className='container'>
+                    <div className='container my-4'>
                         {
                             isLoadingGender ? 'Loading...' : 
                             <React.Fragment>
@@ -268,17 +284,9 @@ class UserRedux extends Component {
                                         </div>
                                         
                                     </div>
-                                    {/* <div className="form-group mb-3">
-                                        <div className="form-check">
-                                            <input className="form-check-input" type="checkbox" id="gridCheck" />
-                                            <label className="form-check-label" htmlFor="gridCheck">
-                                                <FormattedMessage id="manage-user.check-me-out" />
-                                            </label>
-                                        </div>
-                                    </div> */}
                                     <button 
                                         type="button" 
-                                        className="btn btn-primary"
+                                        className="btn btn-primary mb-5"
                                         onClick={() => this.handleSignin()}>
                                         <FormattedMessage id="manage-user.sign-in" />
                                     </button>
@@ -286,6 +294,7 @@ class UserRedux extends Component {
                                 </div>
                             </React.Fragment>
                         }
+                        <TableManageUser />
                     </div>
                 </div>
                 {
@@ -296,6 +305,7 @@ class UserRedux extends Component {
                         onCloseRequest={() => this.setState({ isOpen: false })}
                     />
                 }
+                
             </div>
         )
     }
@@ -310,6 +320,8 @@ const mapStateToProps = state => {
         genderRedux: state.admin.genders,
         positionRedux: state.admin.positions,
         roleIdRedux: state.admin.roleIds,
+
+        usersRedux: state.admin.users
     };
 };
 
@@ -319,6 +331,7 @@ const mapDispatchToProps = dispatch => {
         getPostionStart: () => dispatch(actions.fetchPositionStart()),
         getRoleIdStart: () => dispatch(actions.fetchRoleIdStart()),
         createNewUser: (data) => dispatch(actions.createNewUser(data)),
+        getAllUsers: () => dispatch(actions.getAllUsersStart()),
     };
 };
 

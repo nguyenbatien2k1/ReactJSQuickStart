@@ -1,0 +1,76 @@
+#table-manage-user {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #table-manage-user td, #table-manage-user th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #table-manage-user tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #table-manage-user tr:hover {background-color: #ddd;}
+  
+  #table-manage-user th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+  }
+
+  .btn-edit, .btn-delete {
+    width: 40px;
+    border: none;
+    outline: none;
+    background: transparent;
+    font-size: 24px;
+  }
+
+  .btn-edit {
+    color: orange;
+
+    &:hover {
+      background: transparent !important;
+      color: orange;
+    }
+  }
+
+  .btn-delete {
+    color: red;
+
+    &:hover {
+      background: transparent !important;
+      color: red;
+    }
+  }
+
+  .modal-user-container {
+    .modal-header button {
+      background-color: transparent !important;
+      border: none;
+      outline: none;
+      font-size: 32px;
+      color: white;
+    }
+
+    .modal-user-body {
+
+      .input-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: 8px 0;
+  
+        input {
+          border-radius: 4px;
+          height: 30px;
+          border: 1px solid black;
+          outline: none;
+          padding: 0 8px;
+        }
+      }
+    }
+  }
