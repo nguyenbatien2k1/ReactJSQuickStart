@@ -206,3 +206,30 @@ export const editUserSuccess = () => ({
 export const editUserFail = () => ({
     type: actionTypes.EDIT_USER_FAILED
 })
+
+// load outstanding doctor
+export const loadOutStandingDoctorStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await userService.getOutStandingDoctorService('9');
+            if(res && res.errCode === 0) {
+                dispatch(loadOutStandingDoctorSuccess(res.data));
+            }
+            else {
+                toast.error('Load outstanding doctor failed!');
+                dispatch(loadOutStandingDoctorFail());
+            }
+        } catch (error) {
+            console.log(error);
+            toast.error('Load outstanding doctor failed!');
+        }
+    }
+}
+ export const loadOutStandingDoctorSuccess = (data) => ({
+    type: actionTypes.LOAD_OUTSTANDING_DOCTOR_SUCCESS,
+    data: data
+ })
+
+ export const loadOutStandingDoctorFail = () => ({
+    type: actionTypes.LOAD_OUTSTANDING_DOCTOR_FAILED
+ })

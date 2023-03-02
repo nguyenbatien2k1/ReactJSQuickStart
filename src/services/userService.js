@@ -26,6 +26,9 @@ const userService = {
     },
     getAllCodeService(inputType) {
         return axios.get(`/api/allcode?type=${inputType}`)
+    },
+    getOutStandingDoctorService(limit) {
+        return axios.get(`/api/outstanding-doctor?limit=${limit}`);
     }
 }
 
