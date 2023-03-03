@@ -233,3 +233,58 @@ export const loadOutStandingDoctorStart = () => {
  export const loadOutStandingDoctorFail = () => ({
     type: actionTypes.LOAD_OUTSTANDING_DOCTOR_FAILED
  })
+
+ // get all doctors
+ export const getAllDoctorsStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await userService.getAllDoctors();
+            if(res && res.errCode === 0) {
+                dispatch(getAllDoctorsSuccess(res.data));
+            }
+            else {
+                dispatch(getAllDoctorsFail());
+            }
+        } catch (error) {
+            toast.error('Error...')
+            console.log(error);
+        }
+    }
+ }
+
+ export const getAllDoctorsSuccess = (data) => ({
+    type: actionTypes.GET_ALL_DOCTORS_SUCCESS,
+    data: data
+ })
+
+ export const getAllDoctorsFail = () => ({
+    type: actionTypes.GET_ALL_DOCTORS_FAILED
+ })
+
+ // create info doctor
+ export const createInfoDoctorStart = (data) => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await userService.createInfoDoctor(data);
+            if(res && res.errCode === 0) {
+                toast.success('Create info doctor success!')
+                dispatch(createInfoDoctorSuccess());
+            }
+            else {
+                toast.error('Error...')
+                dispatch(createInfoDoctorFail());
+            }
+        } catch (error) {
+            toast.error('Error...')
+            console.log(error);
+        }
+    }
+ }
+
+ export const createInfoDoctorSuccess = () => ({
+    type: actionTypes.CREATE_INFO_DOCTOR_SUCCESS,
+ })
+
+ export const createInfoDoctorFail = () => ({
+    type: actionTypes.CREATE_INFO_DOCTOR_FAILED
+ })

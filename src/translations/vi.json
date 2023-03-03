@@ -71,5 +71,9 @@
     "home-page": {
         "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
         "see-more": "Xem thêm"
+    },
+    "manage-doctor": {
+        "choose-doctor": "Chọn bác sĩ:",
+        "introduction-info": "Thông tin giới thiệu:"
     }
 }

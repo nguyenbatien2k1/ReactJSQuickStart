@@ -24,11 +24,21 @@ const userService = {
             }
         });
     },
+
     getAllCodeService(inputType) {
         return axios.get(`/api/allcode?type=${inputType}`)
     },
+
     getOutStandingDoctorService(limit) {
         return axios.get(`/api/outstanding-doctor?limit=${limit}`);
+    },
+
+    getAllDoctors() {
+        return axios.get(`/api/all-doctors`);
+    },
+
+    createInfoDoctor(data) {
+        return axios.post(`/api/info-doctor`, data)
     }
 }
 

@@ -71,5 +71,9 @@
     "home-page": {
         "outstanding-doctor": "Outstanding Doctor",
         "see-more": "See More"
+    },
+    "manage-doctor": {
+        "choose-doctor": "Choose Doctor:",
+        "introduction-info": "Introduction information:"
     }
 }
