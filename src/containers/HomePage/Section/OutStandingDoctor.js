@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { FormattedMessage } from 'react-intl';
 
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -36,14 +37,14 @@ class OutStandingDoctor extends Component {
 
         let {outstandingdoctors} = this.state;
         let language = this.props.language
-        outstandingdoctors = [...outstandingdoctors, ...outstandingdoctors, ...outstandingdoctors];
+        // outstandingdoctors = [...outstandingdoctors, ...outstandingdoctors, ...outstandingdoctors];
 
         return (
             <div className='section-share section-outstanding-doctor'>
                 <div className='section-container'>
                     <div className='section-header'>
-                        <span className='section-title'>Bác sĩ nổi bật tuần qua</span>
-                        <button className='section-btn-see-more'>Xem thêm</button>
+                        <span className='section-title'><FormattedMessage id="home-page.outstanding-doctor"/></span>
+                        <button className='section-btn-see-more'><FormattedMessage id="home-page.see-more"/></button>
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.settings}>
