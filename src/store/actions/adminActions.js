@@ -283,3 +283,31 @@ export const loadOutStandingDoctorStart = () => {
  export const createInfoDoctorFail = () => ({
     type: actionTypes.CREATE_INFO_DOCTOR_FAILED
  })
+
+// get schedule doctor
+export const getAllScheduleStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let res = await userService.getAllCodeService('TIME');
+            if(res && res.errCode === 0) {
+                dispatch(getAllScheduleSuccess(res.data));
+            }
+            else {
+                toast.error('Error...')
+                dispatch(getAllScheduleFail());
+            }
+        } catch (error) {
+            toast.error('Error...')
+            console.log(error);
+        }
+    }
+ }
+
+ export const getAllScheduleSuccess = (data) => ({
+    type: actionTypes.GET_ALL_SCHEDULE_SUCCESS,
+    data: data
+ })
+
+ export const getAllScheduleFail = () => ({
+    type: actionTypes.GET_ALL_SCHEDULE_FAILED
+ })
