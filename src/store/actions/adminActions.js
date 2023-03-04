@@ -2,11 +2,6 @@ import actionTypes from './actionTypes';
 import { userService } from '../../services';
 import { toast } from 'react-toastify';
 
-// export const fetchGenderStart = () => ({
-//     type: actionTypes.FETCH_GENDER_START,
-
-// })
-
 // Gender
 export const fetchGenderStart = () => {
     return async (dispatch, getState) => {
@@ -267,7 +262,7 @@ export const loadOutStandingDoctorStart = () => {
         try {
             let res = await userService.createInfoDoctor(data);
             if(res && res.errCode === 0) {
-                toast.success('Create info doctor success!')
+                toast.success(res.errMessage)
                 dispatch(createInfoDoctorSuccess());
             }
             else {
