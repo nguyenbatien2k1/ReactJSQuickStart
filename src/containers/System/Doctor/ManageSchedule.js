@@ -5,10 +5,12 @@ import './ManageSchedule.scss';
 import { FormattedMessage } from 'react-intl';
 
 import Select from "react-select";
-import { LANGUAGES } from '../../../utils';
+import { dateFormat, LANGUAGES } from '../../../utils';
 import * as actions from '../../../store/actions';
 import DatePicker from '../../../components/Input/DatePicker';
 import moment from 'moment';
+import { toast } from 'react-toastify';
+import _ from 'lodash';
 
 
 class ManageSchedule extends Component {
@@ -17,7 +19,7 @@ class ManageSchedule extends Component {
         super(props);
         
         this.state = {
-            selectedDoctor: '',
+            selectedDoctor: {},
             doctors: [], 
             currentDate: '',
             schedules: []
@@ -37,7 +39,10 @@ class ManageSchedule extends Component {
         }
         if(prevProps.schedules !== this.props.schedules) {
             this.setState({
-                schedules: this.props.schedules
+                schedules: this.props.schedules.map(item => {
+                    item.isSelected = false;
+                    return item
+                })
             })
         }
     }
@@ -65,14 +70,59 @@ class ManageSchedule extends Component {
         return result;
       };
 
-    handleSaveManageSchedule = () => {
-        alert('hi')
-    }
-
     handleOnchangeDatePicker = (data) => {
         this.setState({
             currentDate: data[0]
         })
+    }
+
+    handleClickButtonTime = (time) => {
+        let {schedules} = this.state;
+        if(schedules && schedules.length > 0) {
+            schedules = schedules.map(item => {
+                if(item.id === time.id) item.isSelected = !item.isSelected;
+                return item;
+            })
+        }
+        this.setState({
+            schedules: schedules
+        })
+    }
+
+    handleSaveManageSchedule = () => {
+        let {schedules, selectedDoctor, currentDate} = this.state;
+        let result = [];
+
+        if(!selectedDoctor && _.isEmpty(selectedDoctor)) {
+            toast.error('Doctor Error...');
+            return;
+        }
+
+        if(!currentDate) {
+            toast.error('Date Error...');
+            return;
+        }
+
+        let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+
+        if(schedules && schedules.length > 0) {
+            let selectedSchedules = schedules.filter(item => item.isSelected);
+            if(selectedSchedules && selectedSchedules.length > 0) {
+                selectedSchedules.map(item => {
+                    let object = {}
+                    object.doctorId = selectedDoctor.value;
+                    object.date = formatedDate;
+                    object.time = item.key;
+
+                    result.push(object);
+                })
+            }
+            else {
+                toast.error('Schedule Error...');
+                return;
+            }
+        }
+        console.log(result)
     }
 
     render() {
@@ -80,8 +130,6 @@ class ManageSchedule extends Component {
         const doctors = this.buildDataInputSelect(this.state.doctors);
         const {selectedDoctor, schedules} = this.state;
         const {language} = this.props;
-
-        console.log(schedules)
 
         return (
             <div className='manage-schedule-container container my-3'>
@@ -115,7 +163,8 @@ class ManageSchedule extends Component {
                                     return (
                                         <button 
                                             key={index}
-                                            className={'btn btn-outline-primary'}
+                                            className={item.isSelected ? 'btn btn-warning' :'btn btn-outline-primary'}
+                                            onClick={() => this.handleClickButtonTime(item)}
                                         >
                                             {language === LANGUAGES.VI ? item.valueVi : item.valueEn}
                                         </button>
