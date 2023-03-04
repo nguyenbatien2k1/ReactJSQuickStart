@@ -39,6 +39,10 @@ const userService = {
 
     createInfoDoctor(data) {
         return axios.post(`/api/info-doctor`, data)
+    },
+
+    getDetailDoctor(doctorId) {
+        return axios.get(`/api/detail-doctor?doctorId=${doctorId}`);
     }
 }
 

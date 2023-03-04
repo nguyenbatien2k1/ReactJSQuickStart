@@ -34,7 +34,7 @@ class HomePage extends Component {
 
         return (
             <React.Fragment>
-                <HomeHeader />
+                <HomeHeader isShowBanner = {true} />
                 <Specialty 
                     settings = {settings} 
                 />
