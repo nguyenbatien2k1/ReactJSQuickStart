@@ -43,6 +43,10 @@ const userService = {
 
     getDetailDoctor(doctorId) {
         return axios.get(`/api/detail-doctor?doctorId=${doctorId}`);
+    },
+
+    bulkCreateSchedule(data) {
+        return axios.post(`/api/bulk-create-schedule`, data);
     }
 }
 

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 
 import './ManageSchedule.scss';
-import { FormattedMessage } from 'react-intl';
+import { FormattedDate, FormattedMessage } from 'react-intl';
 
 import Select from "react-select";
 import { dateFormat, LANGUAGES } from '../../../utils';
@@ -11,6 +11,7 @@ import DatePicker from '../../../components/Input/DatePicker';
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import _ from 'lodash';
+import { userService } from '../../../services';
 
 
 class ManageSchedule extends Component {
@@ -89,11 +90,11 @@ class ManageSchedule extends Component {
         })
     }
 
-    handleSaveManageSchedule = () => {
+    handleSaveManageSchedule = async () => {
         let {schedules, selectedDoctor, currentDate} = this.state;
         let result = [];
 
-        if(!selectedDoctor && _.isEmpty(selectedDoctor)) {
+        if(_.isEmpty(selectedDoctor)) {
             toast.error('Doctor Error...');
             return;
         }
@@ -104,6 +105,7 @@ class ManageSchedule extends Component {
         }
 
         let formatedDate = moment(currentDate).format(dateFormat.SEND_TO_SERVER);
+        // let formatedDate = moment(new Date(currentDate)).format(dateFormat.SEND_TO_SERVER);
 
         if(schedules && schedules.length > 0) {
             let selectedSchedules = schedules.filter(item => item.isSelected);
@@ -112,7 +114,7 @@ class ManageSchedule extends Component {
                     let object = {}
                     object.doctorId = selectedDoctor.value;
                     object.date = formatedDate;
-                    object.time = item.key;
+                    object.timeType = item.key;
 
                     result.push(object);
                 })
@@ -122,7 +124,12 @@ class ManageSchedule extends Component {
                 return;
             }
         }
-        console.log(result)
+
+        let res = await userService.bulkCreateSchedule({
+            arrSchedule: result,
+            doctorId: selectedDoctor.value,
+            date: formatedDate
+        });
     }
 
     render() {
@@ -153,7 +160,6 @@ class ManageSchedule extends Component {
                                 onChange={this.handleOnchangeDatePicker}
                                 value={this.state.currentDate}
                                 minDate={new Date()}
-
                             />
                         </div>
                         <div className='col-10 pick-hour-container my-4'>
