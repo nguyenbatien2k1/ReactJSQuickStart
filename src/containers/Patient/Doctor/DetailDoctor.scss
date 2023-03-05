@@ -29,6 +29,20 @@
         }
     }
 
+    .schedule-doctor {
+        height: 200px;
+        border: 1px solid red;
+        display: flex;
+
+        .content-left {
+            width: 60%;
+        }
+
+        .content-right {
+            width: 40%;
+        }
+    }
+
     .detail-info-doctor {
         border-top: 1px solid #ddd;
         padding: 16px 0;

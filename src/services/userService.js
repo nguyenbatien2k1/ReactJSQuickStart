@@ -47,6 +47,10 @@ const userService = {
 
     bulkCreateSchedule(data) {
         return axios.post(`/api/bulk-create-schedule`, data);
+    },
+
+    getScheduleDoctorByDate(doctorId, date) {
+        return axios.get(`/api/get-schedule-doctor-by-date?doctorId=${doctorId}&date=${date}`);
     }
 }
 
