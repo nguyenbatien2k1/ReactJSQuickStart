@@ -1,5 +1,6 @@
 .doctor-schedule-container {
     height: 100%;
+    border-right: 1px solid #ddd;
 
     .all-schedule {
         
@@ -42,6 +43,11 @@
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
+
+            .book-free {
+                width: 100%;
+                font-size: 15px;
+            }
             
             button {
                 min-width: 120px;

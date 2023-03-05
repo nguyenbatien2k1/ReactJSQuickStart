@@ -13,17 +13,14 @@ class DetailDoctor extends Component {
     super(props);
 
     this.state = {
-      detailDoctor: {},
+      detailDoctor: {}
     };
   }
 
   async componentDidMount() {
-    if (
-      this.props.match &&
-      this.props.match.params &&
-      this.props.match.params.doctorId
-    ) {
+    if (this.props.match && this.props.match.params && this.props.match.params.doctorId) {
       let doctorId = this.props.match.params.doctorId;
+      
       let res = await userService.getDetailDoctor(doctorId);
       if (res && res.errCode === 0) {
         this.setState({
@@ -44,7 +41,7 @@ class DetailDoctor extends Component {
       nameVi = `${detailDoctor.positionData.valueVi}, ${detailDoctor.lastName} ${detailDoctor.firstName}`;
       nameEn = `${detailDoctor.positionData.valueEn}, ${detailDoctor.firstName} ${detailDoctor.lastName}`;
     }
-
+    
     return (
       <>
         <HomeHeader isShowBanner={false} />
@@ -75,7 +72,7 @@ class DetailDoctor extends Component {
             <div className="schedule-doctor">
               <div className="content-left">
                 <DoctorSchedule 
-                  detailDoctor={detailDoctor}
+                  
                 />
               </div>
               <div className="content-right"></div>

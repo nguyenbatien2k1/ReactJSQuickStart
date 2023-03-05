@@ -30,16 +30,16 @@
     }
 
     .schedule-doctor {
-        height: 200px;
         display: flex;
         margin-top: 32px;
+        min-height: 222px;
 
         .content-left {
-            width: 60%;
+            width: 50%;
         }
 
         .content-right {
-            width: 40%;
+            width: 50%;
         }
     }
 
