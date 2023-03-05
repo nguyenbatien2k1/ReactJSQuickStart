@@ -311,3 +311,39 @@ export const getAllScheduleStart = () => {
  export const getAllScheduleFail = () => ({
     type: actionTypes.GET_ALL_SCHEDULE_FAILED
  })
+
+
+ // get schedule doctor
+export const getAllRequiredDoctorInfoStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            let resPrice = await userService.getAllCodeService('PRICE');
+            let resPayment = await userService.getAllCodeService('PAYMENT');
+            let resProvince = await userService.getAllCodeService('PROVINCE');
+            if((resPrice && resPrice.errCode === 0) && (resPayment && resPayment.errCode === 0) && (resProvince && resProvince.errCode === 0)) {
+                let data = {
+                    resPrice: resPrice.data,
+                    resPayment: resPayment.data,
+                    resProvince: resProvince.data,
+                }
+                dispatch(getAllRequiredDoctorInfoSuccess(data));
+            }
+            else {
+                toast.error('Error...')
+                dispatch(getAllRequiredDoctorInfoFail());
+            }
+        } catch (error) {
+            toast.error('Error...')
+            console.log(error);
+        }
+    }
+ }
+
+ export const getAllRequiredDoctorInfoSuccess = (data) => ({
+    type: actionTypes.GET_ALL_REQUIRED_DOCTOR_INFO_SUCCESS,
+    data: data
+ })
+
+ export const getAllRequiredDoctorInfoFail = () => ({
+    type: actionTypes.GET_ALL_REQUIRED_DOCTOR_INFO_FAILED
+ })

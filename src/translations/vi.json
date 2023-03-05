@@ -64,8 +64,11 @@
         "see-more": "Xem thêm"
     },
     "manage-doctor": {
-        "choose-doctor": "Chọn bác sĩ:",
-        "introduction-info": "Thông tin giới thiệu:"
+        "title": "Tạo thêm thông tin bác sĩ",
+        "choose-doctor": "Chọn bác sĩ",
+        "introduction-info": "Thông tin giới thiệu",
+        "save": "Lưu thông tin",
+        "create": "Tạo mới thông tin"
     },
     "manage-schedule": {
         "title": "Quản lý kế hoạch khám bệnh của bác sĩ",

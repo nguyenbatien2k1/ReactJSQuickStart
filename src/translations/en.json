@@ -64,8 +64,11 @@
         "see-more": "See More"
     },
     "manage-doctor": {
-        "choose-doctor": "Choose Doctor:",
-        "introduction-info": "Introduction information:"
+        "title": "Additional doctor's information",
+        "choose-doctor": "Choose Doctor",
+        "introduction-info": "Introduction information",
+        "save": "Save Info",
+        "create": "Create Info"
     },
     "manage-schedule": {
         "title": "Manage doctor's examination plan",
