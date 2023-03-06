@@ -102,30 +102,71 @@ class ManageDoctor extends Component {
     });
   };
 
-  handleChange = async (selectedDoctor) => {
+  handleChangeDoctor = async (selectedDoctor) => {
     this.setState({ 
         selectedDoctor,
     });
+    let {prices, payments, provinces} = this.state;
 
     let res = await userService.getDetailDoctor(selectedDoctor.value);
-    if (res && res.errCode === 0 && res.data && res.data.Markdown) {
+    if (res && res.errCode === 0 && res.data && res.data.Markdown && res.data.Doctor_Info) {
       let markdown = res.data.Markdown;
+
+      let priceId = '',
+          paymentId = '',
+          provinceId = '',
+          nameClinic = '',
+          addressClinic = '',
+          note = '';
+      let selectedPrice = '',
+          selectedPayment = '',
+          selectedProvince = ''
+      
+      if(res.data.Doctor_Info) {
+        nameClinic = res.data.Doctor_Info.nameClinic;
+        addressClinic = res.data.Doctor_Info.addressClinic;
+        note = res.data.Doctor_Info.note;
+
+        priceId = res.data.Doctor_Info.priceId;
+        paymentId = res.data.Doctor_Info.paymentId;
+        provinceId = res.data.Doctor_Info.provinceId;
+
+        selectedPrice = prices.find(item => item.value === priceId);
+        selectedPayment = payments.find(item => item.value === paymentId);
+        selectedProvince = provinces.find(item => item.value === provinceId);
+
+      }
+
       this.setState({
         contentHTML: markdown.contentHTML,
         contentMarkdown: markdown.contentMarkdown,
         description: markdown.description,
         hasOldData: true,
-        action: CRUD_ACTIONS.EDIT
-
+        action: CRUD_ACTIONS.EDIT,
+        
+        //
+        selectedPrice,
+        selectedPayment,
+        selectedProvince,
+        nameClinic,
+        addressClinic,
+        note
       });
     }
-    if (!res.data.Markdown) {
+    
+    else {
       this.setState({
         contentHTML: '',
         contentMarkdown: '',
         description: '',
         hasOldData: false,
-        action: CRUD_ACTIONS.CREATE
+        action: CRUD_ACTIONS.CREATE,
+        selectedPrice: '',
+        selectedPayment: '',
+        selectedProvince: '',
+        nameClinic: '',
+        addressClinic: '',
+        note: ''
       });
     }
   };
@@ -240,7 +281,7 @@ class ManageDoctor extends Component {
               <Select
                 value={selectedDoctor}
                 options={doctors}
-                onChange={this.handleChange}
+                onChange={this.handleChangeDoctor}
                 placeholder={<FormattedMessage id="manage-doctor.choose-doctor" />}
               />
             </div>
@@ -280,7 +321,7 @@ class ManageDoctor extends Component {
 
             <div className="form-group col-3">
                 <label><FormattedMessage id="manage-doctor.choose-name-clinic" /></label>
-                <input 
+                <textarea 
                   className="form-control" 
                   value={this.state.nameClinic} 
                   onChange={(e) => this.handleOnChangeText(e, 'nameClinic')}
@@ -289,7 +330,7 @@ class ManageDoctor extends Component {
 
             <div className="form-group col-3">
                 <label><FormattedMessage id="manage-doctor.choose-address-clinic" /></label>
-                <input 
+                <textarea 
                   className="form-control"
                   value={this.state.addressClinic} 
                   onChange={(e) => this.handleOnChangeText(e, 'addressClinic')}

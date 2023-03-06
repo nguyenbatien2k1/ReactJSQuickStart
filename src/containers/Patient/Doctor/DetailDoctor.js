@@ -7,6 +7,7 @@ import HomeHeader from "../../HomePage/HomeHeader";
 import { userService } from "../../../services";
 import { LANGUAGES } from "../../../utils";
 import DoctorSchedule from "./DoctorSchedule";
+import MedicalAddressDoctor from "./MedicalAddressDoctor";
 
 class DetailDoctor extends Component {
   constructor(props) {
@@ -75,7 +76,9 @@ class DetailDoctor extends Component {
                   
                 />
               </div>
-              <div className="content-right"></div>
+              <div className="content-right">
+                <MedicalAddressDoctor />
+              </div>
             </div>
             <div className="detail-info-doctor my-3">
               {detailDoctor &&
