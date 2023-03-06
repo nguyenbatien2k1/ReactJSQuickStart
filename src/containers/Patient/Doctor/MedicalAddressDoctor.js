@@ -65,8 +65,6 @@ class MedicalAddressDoctor extends Component {
 
         const {isShowDetail, nameClinic, addressClinic, note, price, payment, province} = this.state;
 
-        console.log(this.state)
-
         return (
            <div className='medical-address-container'>
                 <div className='content-up'>
