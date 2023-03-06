@@ -67,6 +67,12 @@
         "title": "Additional doctor's information",
         "choose-doctor": "Choose Doctor",
         "introduction-info": "Introduction information",
+        "choose-price": "Choose price",
+        "choose-payment": "Choose payment",
+        "choose-province": "Choose province",
+        "choose-name-clinic": "Choose name clinic",
+        "choose-address-clinic": "Choose name clinic",
+        "note": "Note",
         "save": "Save Info",
         "create": "Create Info"
     },

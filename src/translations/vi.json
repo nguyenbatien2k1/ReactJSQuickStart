@@ -67,6 +67,12 @@
         "title": "Tạo thêm thông tin bác sĩ",
         "choose-doctor": "Chọn bác sĩ",
         "introduction-info": "Thông tin giới thiệu",
+        "choose-price": "Chọn giá khám",
+        "choose-payment": "Chọn phương thức thanh toán",
+        "choose-province": "Chọn tỉnh thành",
+        "choose-name-clinic": "Chọn tên phòng khám",
+        "choose-address-clinic": "Chọn địa chỉ phòng khám",
+        "note": "Ghi chú",
         "save": "Lưu thông tin",
         "create": "Tạo mới thông tin"
     },
