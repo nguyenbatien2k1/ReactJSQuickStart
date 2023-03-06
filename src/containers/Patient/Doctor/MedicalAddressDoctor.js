@@ -4,6 +4,10 @@ import { connect } from "react-redux";
 import './MedicalAddressDoctor.scss';
 import {FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router-dom';
+import { userService } from '../../../services';
+import { LANGUAGES } from '../../../utils';
+
+import { NumericFormat } from 'react-number-format';
 
 class MedicalAddressDoctor extends Component {
 
@@ -11,16 +15,44 @@ class MedicalAddressDoctor extends Component {
         super(props);
         
         this.state = {
-          isShowDetail: false
+          isShowDetail: false,
+          price: '',
+          payment: '',
+          province: '',
+          nameClinic: '',
+          addressClinic: '',
+          note: ''
         }
     }
 
     async componentDidMount() {
-
+        this.getDataFromAPI();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-       
+    getDataFromAPI = async () => {
+        let doctorId = this.props.match.params.doctorId;
+        let {language} = this.props;
+        
+        let res = await userService.getMedicalAddressDoctorById(doctorId);
+
+        if(res && res.errCode === 0) {
+            this.setState({
+                nameClinic: res.data.nameClinic,
+                addressClinic: res.data.addressClinic,
+                note: res.data.note,
+                price: language === LANGUAGES.VI ? `${new Intl.NumberFormat('vi-VI').format(res.data.priceData.valueVi)} VNĐ` : `${new Intl.NumberFormat('en-EN').format(res.data.priceData.valueEn)} USD`,
+                payment: language === LANGUAGES.VI ? res.data.paymentData.valueVi : res.data.paymentData.valueEn,
+                province: language === LANGUAGES.VI ? res.data.provinceData.valueVi : res.data.provinceData.valueEn,
+            })
+
+            // new Intl.NumberFormat('vi-VI').format(number)
+        }
+    }
+
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+       if(prevProps.language !== this.props.language) {
+        this.getDataFromAPI();
+       }
     }
 
     handleShowHide = () => {
@@ -31,39 +63,41 @@ class MedicalAddressDoctor extends Component {
 
     render() {
 
-        const {isShowDetail} = this.state;
+        const {isShowDetail, nameClinic, addressClinic, note, price, payment, province} = this.state;
+
+        console.log(this.state)
 
         return (
            <div className='medical-address-container'>
                 <div className='content-up'>
-                    <div className='text-title mb-2'>Địa chỉ khám</div>
-                    <div className='text-clinic'>Phòng khám đa khoa</div>
-                    <div className='text-address'>Ngách 63 Trần Quốc Vượng</div>
+                    <div className='text-title mb-2'><FormattedMessage id="patient.medical-address-doctor.text-address" /></div>
+                    <div className='text-clinic'>{nameClinic ? nameClinic : ''}</div>
+                    <div className='text-address'>{addressClinic ? addressClinic : ''}</div>
                 </div>
                 <div className='content-down'>
                     {
                         isShowDetail === false ?
                         <div>
-                            <span className='text-title'>Giá khám: </span>
-                            <span style={{fontSize: '16px'}}>300.000đ. </span>
-                            <span className='see-detail' onClick={(e) => this.handleShowHide(e)}>Xem chi tiết</span>
+                            <span className='text-title'><FormattedMessage id="patient.medical-address-doctor.text-price" />: </span>
+                            <span style={{fontSize: '16px'}}>{price}. </span>
+                            <span className='see-detail' onClick={(e) => this.handleShowHide(e)}><FormattedMessage id="patient.medical-address-doctor.see-detail" /></span>
                         </div> :
                         <>
-                            <div className='text-title'>Giá khám</div>
+                            <div className='text-title'><FormattedMessage id="patient.medical-address-doctor.text-price" /></div>
                             <div className='c-d-table my-3'>
                                 <div>
                                     <div className='text-price mb-1'>
-                                        <span>Giá khám</span>
-                                        <span>300.000đ</span>
+                                        <span><FormattedMessage id="patient.medical-address-doctor.text-price" /></span>
+                                        <span>{price ? price : ''}</span>
                                     </div>
-                                    <div className='text-note'>Được ưu tiên khám trước khi đật khám qua BookingCare. Giá khám cho người nước ngoài là 30 USD.</div>
+                                    <div className='text-note'>{note ? note : ''}.</div>
                                 </div>
-                                <div className='text-payment mt-1'>Người bệnh có thể thanh toán chi phí bằng hình thức tiền mặt và quẹt thẻ</div>
+                                <div className='text-payment mt-1'><FormattedMessage id="patient.medical-address-doctor.text-payment" /> {payment}</div>
                             </div>
                                 <span
                                     className='hide-price-list'
                                     onClick={(e) => this.handleShowHide(e)}
-                                >Thu gọn</span>
+                                ><FormattedMessage id="patient.medical-address-doctor.hide-price-list" /></span>
                         </>
                     }
                 </div>

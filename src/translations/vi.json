@@ -87,6 +87,14 @@
             "schedule": "Lịch khám",
             "no-schedule": "Hiện tại không có lịch khám bệnh trong ngày này, vui lòng chọn thời gian khác ! ",
             "book-free": "Chọn và đặt lịch miễn phí tại đây nè "
+        },
+        "medical-address-doctor": {
+            "text-address": "Địa chỉ khám",
+            "text-price": "Giá khám",
+            "text-payment": "Người bệnh có thể thanh toán chi phí bằng hình thức: ",
+            "see-detail": "Xem chi tiết",
+            "hide-price-list": "Ẩn bảng giá"
+
         }
     }
 }

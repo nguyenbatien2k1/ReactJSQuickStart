@@ -51,6 +51,10 @@ const userService = {
 
     getScheduleDoctorByDate(doctorId, date) {
         return axios.get(`/api/get-schedule-doctor-by-date?doctorId=${doctorId}&date=${date}`);
+    },
+
+    getMedicalAddressDoctorById(doctorId) {
+        return axios.get(`/api/get-medical-address-doctor-by-id?doctorId=${doctorId}`);
     }
 }
 

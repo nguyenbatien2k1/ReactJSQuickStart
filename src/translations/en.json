@@ -87,6 +87,15 @@
             "schedule": "Schedule",
             "no-schedule": "There are currently no medical appointments for this day, please choose another time !",
             "book-free": "Choose and book a free appointment here "
+        },
+        "medical-address-doctor": {
+            "text-address": "Address",
+            "text-price": "Price",
+            "text-payment": "The patient can pay the cost in the form of: ",
+            "see-detail": "See Detail",
+            "hide-price-list": "Hide Price List"
+
         }
+
     }
 }

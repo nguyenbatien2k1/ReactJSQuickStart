@@ -81,7 +81,10 @@ class ManageDoctor extends Component {
         selectedProvince: '',
         contentMarkdown: "",
         contentHTML: "",
-        description: ''
+        description: '',
+        nameClinic: '',
+        addressClinic: '',
+        note: ''
       });
     }
 
