@@ -107,7 +107,9 @@
             "who-to-examine": "Who to examine",
             "reason": "Reason",
             "confirm": "Confirm",
-            "cancel": "Cancel"
+            "cancel": "Cancel",
+            "gender": "Gender",
+            "date": "Medical Examination Day"
         }
 
     }

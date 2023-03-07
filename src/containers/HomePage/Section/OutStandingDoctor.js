@@ -36,7 +36,6 @@ class OutStandingDoctor extends Component {
     }
 
     handleDetailDoctor = (doctor) => {
-        console.log(doctor)
         this.props.history.push(`/detail-doctor/${doctor.id}`)
     }
 
@@ -44,7 +43,6 @@ class OutStandingDoctor extends Component {
 
         let {outstandingdoctors} = this.state;
         let language = this.props.language
-        // outstandingdoctors = [...outstandingdoctors, ...outstandingdoctors, ...outstandingdoctors];
 
         return (
             <div className='section-share section-outstanding-doctor'>

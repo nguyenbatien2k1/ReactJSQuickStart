@@ -6,6 +6,9 @@ import "./ProfileDoctor.scss";
 import { LANGUAGES } from "../../../utils";
 import { userService } from '../../../services';
 import { FormattedMessage } from "react-intl";
+import moment from "moment";
+import localization from "moment/locale/vi";
+
 
 
 class ProfileDoctor extends Component {
@@ -36,10 +39,7 @@ class ProfileDoctor extends Component {
       }
 
       if(prevProps.doctorId !== this.props.doctorId) {
-        // let data = this.getDataProfileDoctor(this.props.doctorId);
-        // this.setState({
-        //   dataProfileDoctor: data
-        // })
+        
       }
   }
 
@@ -51,6 +51,10 @@ class ProfileDoctor extends Component {
           result = res.data;
         }
         return result;
+  }
+
+  capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   render() {
@@ -77,9 +81,10 @@ class ProfileDoctor extends Component {
       }
 
       if(dataScheduleTime && dataScheduleTime.timeTypeData) {
-        let date = dataScheduleTime.date;
-        timeVi = `${dataScheduleTime.timeTypeData.valueVi} ${language === LANGUAGES.VI && 'Ngày'} ${date}`;
-        timeEn = `${dataScheduleTime.timeTypeData.valueEn} ${language === LANGUAGES.EN && 'Date'} ${date}`
+        let dateVi = this.capitalizeFirstLetter(moment(new Date(dataScheduleTime.date)).format('dddd - MM/DD/YYYY'));
+        let dateEn = moment(new Date(dataScheduleTime.date)).locale('en').format('ddd - DD/MM/YYYY');
+        timeVi = `${dataScheduleTime.timeTypeData.valueVi} - ${dateVi}`;
+        timeEn = `${dataScheduleTime.timeTypeData.valueEn} - ${dateEn}`
       }
 
       return (

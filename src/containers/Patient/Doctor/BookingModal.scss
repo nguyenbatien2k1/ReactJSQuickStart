@@ -1,5 +1,4 @@
 .booking-modal-container {
-  margin-top: 60px;
 
   .booking-modal-content {
     display: flex;
@@ -30,7 +29,7 @@
 
     .booking-modal-body {
       height: 100%;
-      padding: 8px 16px;
+      padding: 4px 8px;
 
       .doctor-info {
         background-color: #f6f6f6;
@@ -59,7 +58,11 @@
       gap: 24px;
       height: 60px;
       padding: 8px 16px;
-      background-color: aquamarine;
+      border-top: 1px solid gray;
     }
   }
+}
+
+.modal.fade .modal-dialog {
+  transition: transform 0.3s ease-out !important;
 }

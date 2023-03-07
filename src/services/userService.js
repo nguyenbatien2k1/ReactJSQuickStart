@@ -59,6 +59,10 @@ const userService = {
 
     getProfileDoctorById(doctorId) {
         return axios.get(`/api/get-profile-doctor-by-id?doctorId=${doctorId}`);
+    },
+
+    postBookAppointment(data) {
+        return axios.post(`/api/patient-book-appointment`, data);
     }
 }
 
