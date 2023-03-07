@@ -55,6 +55,10 @@ const userService = {
 
     getMedicalAddressDoctorById(doctorId) {
         return axios.get(`/api/get-medical-address-doctor-by-id?doctorId=${doctorId}`);
+    },
+
+    getProfileDoctorById(doctorId) {
+        return axios.get(`/api/get-profile-doctor-by-id?doctorId=${doctorId}`);
     }
 }
 

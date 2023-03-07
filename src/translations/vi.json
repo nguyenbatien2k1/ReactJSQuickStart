@@ -94,7 +94,19 @@
             "text-payment": "Người bệnh có thể thanh toán chi phí bằng hình thức: ",
             "see-detail": "Xem chi tiết",
             "hide-price-list": "Ẩn bảng giá"
-
+        },
+        "modal": {
+            "message-info": "Thông tin đặt lịch khám bệnh",
+            "booking": "Đặt lịch khám",
+            "price": "Giá khám",
+            "full-name": "Họ và tên",
+            "phonenumber": "Số điện thoại",
+            "date-of-birth": "Ngày tháng năm sinh",
+            "address": "Địa chỉ",
+            "who-to-examine": "Khám cho ai",
+            "reason": "Lý do khám",
+            "confirm": "Xác nhận",
+            "cancel": "Hủy bỏ"
         }
     }
 }

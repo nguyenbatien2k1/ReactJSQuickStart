@@ -34,8 +34,9 @@
 
       .doctor-info {
         background-color: #f6f6f6;
-        height: 120px;
+        // height: 150px;
         display: flex;
+        align-items: center;
         padding: 8px 16px;
         gap: 24px;
 
@@ -43,11 +44,10 @@
           width: 100px;
           height: 100px;
           border-radius: 50%;
-          background: red;
         }
 
         .right {
-
+          // width: 100%;
         }
       }
     }

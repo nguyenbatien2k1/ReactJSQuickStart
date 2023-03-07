@@ -95,6 +95,19 @@
             "see-detail": "See Detail",
             "hide-price-list": "Hide Price List"
 
+        },
+        "modal": {
+            "message-info": "Information to book a medical appointment",
+            "booking": "Booking appointment",
+            "price": "Price",
+            "full-name": "Fullname",
+            "phonenumber": "PhoneNumber",
+            "date-of-birth": "Date of birth",
+            "address": "Address",
+            "who-to-examine": "Who to examine",
+            "reason": "Reason",
+            "confirm": "Confirm",
+            "cancel": "Cancel"
         }
 
     }

@@ -7,8 +7,6 @@ import { withRouter } from 'react-router-dom';
 import { userService } from '../../../services';
 import { LANGUAGES } from '../../../utils';
 
-import { NumericFormat } from 'react-number-format';
-
 class MedicalAddressDoctor extends Component {
 
     constructor(props) {
@@ -45,7 +43,6 @@ class MedicalAddressDoctor extends Component {
                 province: language === LANGUAGES.VI ? res.data.provinceData.valueVi : res.data.provinceData.valueEn,
             })
 
-            // new Intl.NumberFormat('vi-VI').format(number)
         }
     }
 

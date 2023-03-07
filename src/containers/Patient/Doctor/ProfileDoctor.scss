@@ -1,0 +1,46 @@
+.doctor-info-container {
+  background-color: #f6f6f6;
+  display: flex;
+  gap: 24px;
+
+  .left {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .right {
+
+    .booking {
+      color: #969495;
+      font-size: 20px;
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+
+    .name-doctor {
+      color: #337ab7;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .nameClinic {
+      font-size: 16px;
+      font-weight: bold;
+      opacity: 0.8;
+    }
+
+    .addressClinic {
+      font-weight: bold;
+      opacity: 0.6;
+    }
+
+    .time {
+      color: gray;
+    }
+  }
+}
+
