@@ -34,6 +34,7 @@ class DatePicker extends Component {
 
             // Take the blur event and process the string value
             const valueMoment = moment(value, 'DD/MM/YYYY');
+            // const valueMoment = moment(value, 'MM/DD/YYYY');
             onChange([valueMoment.toDate(), valueMoment.toDate()]);
         }
     }
@@ -47,12 +48,18 @@ class DatePicker extends Component {
 
     handleBlur = (event) => {
         const { onChange } = this.props;
-        const value = event.target.value;
+        let value = '';
 
-        // Take the blur event and process the string value
-        event.preventDefault();
-        const valueMoment = moment(value, 'DD/MM/YYYY');
-        onChange([valueMoment.toDate(), valueMoment.toDate()]);
+        if(event.target.value) {
+            value = event.target.value;
+
+            event.preventDefault();
+            const valueMoment = moment(value, 'DD/MM/YYYY');
+            // const valueMoment = moment(value, 'MM/DD/YYYY');
+            onChange([valueMoment.toDate(), valueMoment.toDate()]);
+            // Take the blur event and process the string value
+        }
+
     };
 
     onOpen = () => {
@@ -121,9 +128,11 @@ class DatePicker extends Component {
     }
 
     onInputChange = (e) => {
-        if (this.DISPLAY_FORMAT === this.DATE_FORMAT_AUTO_FILL) {
-            let converted = this.autoFormatOnChange(e.target.value, this.SEPERATOR);
-            e.target.value = converted;
+        if(e.target.value) {
+            if (this.DISPLAY_FORMAT === this.DATE_FORMAT_AUTO_FILL) {
+                let converted = this.autoFormatOnChange(e.target.value, this.SEPERATOR);
+                e.target.value = converted;
+            }
         }
     }
 

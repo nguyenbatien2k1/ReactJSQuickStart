@@ -43,6 +43,7 @@ class DetailDoctor extends Component {
       nameEn = `${detailDoctor.positionData.valueEn}, ${detailDoctor.firstName} ${detailDoctor.lastName}`;
     }
     
+
     return (
       <>
         <HomeHeader isShowBanner={false} />
@@ -73,7 +74,7 @@ class DetailDoctor extends Component {
             <div className="schedule-doctor">
               <div className="content-left">
                 <DoctorSchedule 
-                  
+                  priceData={detailDoctor && detailDoctor.Doctor_Info && detailDoctor.Doctor_Info.priceData}
                 />
               </div>
               <div className="content-right">

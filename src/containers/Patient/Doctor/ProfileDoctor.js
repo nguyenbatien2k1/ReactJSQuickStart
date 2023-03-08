@@ -62,7 +62,7 @@ class ProfileDoctor extends Component {
       let {dataProfileDoctor, dataScheduleTime} = this.state.data;
       let {language} = this.props;
       let nameDoctorVi ='', nameDoctorEn='';
-      let timeVi = '', timeEn = '';
+      let {timeVi, timeEn} = this.props.formatTimeMoment();
       let nameClinic = '', addressClinic = '', priceVi = '', priceEn = '';
 
       if(dataProfileDoctor && dataProfileDoctor.positionData) {
@@ -78,13 +78,6 @@ class ProfileDoctor extends Component {
         addressClinic = dataProfileDoctor.Doctor_Info.addressClinic;
         priceVi = `${dataProfileDoctor.Doctor_Info.priceData.valueVi}`;
         priceEn = `${dataProfileDoctor.Doctor_Info.priceData.valueEn}`;
-      }
-
-      if(dataScheduleTime && dataScheduleTime.timeTypeData) {
-        let dateVi = this.capitalizeFirstLetter(moment(new Date(dataScheduleTime.date)).format('dddd - MM/DD/YYYY'));
-        let dateEn = moment(new Date(dataScheduleTime.date)).locale('en').format('ddd - DD/MM/YYYY');
-        timeVi = `${dataScheduleTime.timeTypeData.valueVi} - ${dateVi}`;
-        timeEn = `${dataScheduleTime.timeTypeData.valueEn} - ${dateEn}`
       }
 
       return (

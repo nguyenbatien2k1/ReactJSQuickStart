@@ -9,6 +9,7 @@ import { LANGUAGES } from '../../../utils';
 import { userService } from '../../../services';
 import { withRouter } from 'react-router-dom';
 import BookingModal from './BookingModal';
+import _ from 'lodash';
 
 class DoctorSchedule extends Component {
 
@@ -94,9 +95,9 @@ class DoctorSchedule extends Component {
         }
     }
 
-    handleClickTime = (time) => {
+    handleClickTime = (time) => { 
         this.setState({
-            isOpenModal: true,
+            isOpenModal: !this.state.isOpenModal,
             dataScheduleTime: time
         })
     }
@@ -160,12 +161,15 @@ class DoctorSchedule extends Component {
                     </div>
                 </div>
             </div>
-
-            <BookingModal
-                isOpenModal={isOpenModal}
-                handleCloseModal={this.handleCloseModal}
-                dataScheduleTime={dataScheduleTime}
-            />
+            {
+                dataScheduleTime && !_.isEmpty(dataScheduleTime) &&
+                <BookingModal
+                    isOpenModal={isOpenModal}
+                    handleCloseModal={this.handleCloseModal}
+                    dataScheduleTime={dataScheduleTime}
+                    priceData={this.props.priceData}
+                />
+            }
             </>
         );
     }

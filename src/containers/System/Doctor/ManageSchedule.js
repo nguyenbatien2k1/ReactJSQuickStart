@@ -72,9 +72,11 @@ class ManageSchedule extends Component {
       };
 
     handleOnchangeDatePicker = (data) => {
+        console.log(data)
         this.setState({
             currentDate: data[0]
         })
+
     }
 
     handleClickButtonTime = (time) => {
