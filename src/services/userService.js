@@ -63,6 +63,10 @@ const userService = {
 
     postBookAppointment(data) {
         return axios.post(`/api/patient-book-appointment`, data);
+    },
+
+    postVerifyBookAppointment(token, doctorId) {
+        return axios.post(`/api/verify-book-appointment?token=${token}&doctorId=${doctorId}`);
     }
 }
 

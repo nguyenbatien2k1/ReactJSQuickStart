@@ -78,7 +78,9 @@ class DetailDoctor extends Component {
                 />
               </div>
               <div className="content-right">
-                <MedicalAddressDoctor />
+                <MedicalAddressDoctor 
+                  priceData={detailDoctor && detailDoctor.Doctor_Info && detailDoctor.Doctor_Info.priceData}
+                />
               </div>
             </div>
             <div className="detail-info-doctor my-3">

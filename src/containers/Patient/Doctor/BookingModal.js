@@ -177,9 +177,7 @@ class BookingModal extends Component {
       language: this.props.language
     }    
     
-    if(this.checkValidateInput(data)) {
-      
-      console.log(data)
+    if(this.checkValidateInput(data)) {      
       let res = await userService.postBookAppointment(data);
       if(res && res.errCode === 0) {
         toast.success('Booking Appointment Success!')
