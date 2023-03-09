@@ -29,7 +29,8 @@ class DoctorSchedule extends Component {
         let allDays = this.setAllDays(this.props.language);
 
         if(allDays && allDays.length > 0) {
-            let doctorId = this.props.match.params.doctorId;
+            // let doctorId = this.props.match.params.doctorId;
+            let doctorId = this.props.doctorId;
             let res = await userService.getScheduleDoctorByDate(doctorId, allDays[0].value);
             if(res && res.errCode === 0) {
                 this.setState({
@@ -85,7 +86,7 @@ class DoctorSchedule extends Component {
     }
 
     handleOnChangeSelect = async (e) => {
-        let doctorId = this.props.match.params.doctorId;
+        let doctorId = this.props.doctorId;
         let date = e.target.value;
         let res = await userService.getScheduleDoctorByDate(doctorId, date);
         if(res && res.errCode === 0) {

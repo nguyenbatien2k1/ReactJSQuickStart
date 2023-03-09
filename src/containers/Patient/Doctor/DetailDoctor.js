@@ -8,6 +8,7 @@ import { userService } from "../../../services";
 import { LANGUAGES } from "../../../utils";
 import DoctorSchedule from "./DoctorSchedule";
 import MedicalAddressDoctor from "./MedicalAddressDoctor";
+import { withRouter } from "react-router";
 
 class DetailDoctor extends Component {
   constructor(props) {
@@ -75,6 +76,7 @@ class DetailDoctor extends Component {
               <div className="content-left">
                 <DoctorSchedule 
                   priceData={detailDoctor && detailDoctor.Doctor_Info && detailDoctor.Doctor_Info.priceData}
+                  doctorId={this.props.match.params.doctorId}
                 />
               </div>
               <div className="content-right">
@@ -112,4 +114,4 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(DetailDoctor);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(DetailDoctor));

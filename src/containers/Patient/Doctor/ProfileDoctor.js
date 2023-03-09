@@ -57,12 +57,30 @@ class ProfileDoctor extends Component {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
+  formatTimeMoment = () => {
+    let timeVi = '', timeEn = '';
+    let {dataScheduleTime, language} = this.props;
+
+    if(dataScheduleTime && dataScheduleTime.timeTypeData) {
+      let dateVi = this.capitalizeFirstLetter(moment(moment(dataScheduleTime.date, 'DD/MM/YYYY')).format('dddd - DD/MM/YYYY'));
+      let dateEn = moment(moment(dataScheduleTime.date, 'DD/MM/YYYY')).locale('en').format('ddd - MM/DD/YYYY');
+      
+      timeVi = `${dataScheduleTime.timeTypeData.valueVi} - ${dateVi}`;
+      timeEn = `${dataScheduleTime.timeTypeData.valueEn} - ${dateEn}`;
+    }
+
+    return {
+      timeVi,
+      timeEn
+    }
+  }
+
   render() {
 
       let {dataProfileDoctor, dataScheduleTime} = this.state.data;
       let {language} = this.props;
       let nameDoctorVi ='', nameDoctorEn='';
-      let {timeVi, timeEn} = this.props.formatTimeMoment();
+      let {timeVi, timeEn} = this.formatTimeMoment();
       let nameClinic = '', addressClinic = '', priceVi = '', priceEn = '';
 
       if(dataProfileDoctor && dataProfileDoctor.positionData) {

@@ -29,7 +29,7 @@ class MedicalAddressDoctor extends Component {
     }
 
     getDataFromAPI = async () => {
-        let doctorId = this.props.match.params.doctorId;
+        let doctorId = this.props.match.params.doctorId || this.props.doctorId;
         let {language} = this.props;
         
         let res = await userService.getMedicalAddressDoctorById(doctorId);

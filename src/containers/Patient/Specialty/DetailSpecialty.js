@@ -7,6 +7,12 @@ import { withRouter } from 'react-router-dom';
 import { userService } from '../../../services';
 import { LANGUAGES } from '../../../utils';
 import _ from 'lodash';
+import HomeHeader from '../../HomePage/HomeHeader';
+import DoctorSchedule from '../Doctor/DoctorSchedule';
+import MedicalAddressDoctor from '../Doctor/MedicalAddressDoctor';
+import ProfileDoctor from '../Doctor/ProfileDoctor';
+
+
 
 class DetailSpecialty extends Component {
 
@@ -14,7 +20,7 @@ class DetailSpecialty extends Component {
         super(props);
         
         this.state = {
-         
+            listDoctor: [26, 25],
         }
     }
 
@@ -25,15 +31,54 @@ class DetailSpecialty extends Component {
    
     async componentDidUpdate(prevProps, prevState, snapshot) {
        if(prevProps.language !== this.props.language) {
-        this.getDataFromAPI();
+
        }
     }
 
 
     render() {
 
+        const {listDoctor} = this.state
+
         return (
-           <div>Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii</div>
+            <>
+                <HomeHeader />
+                <div className='d-s-intro'></div>
+                <div className='detail-specialty-container py-3'>
+                    <div className='container'>
+                        {
+                            listDoctor && listDoctor.length > 0 &&
+                            listDoctor.map((item, index) => {
+                            return (
+                                <div className='each-doctor' key={index}>
+                                    <div className='e-d-left'>
+                                        <div className='e-d-l-profile-doctor'>
+                                            <ProfileDoctor
+                                                doctorId={item}
+                                            />
+                                        </div>
+                                    </div>
+                                    
+                                    <div className='e-d-right'>
+                                        <div className='e-d-r-doctor-schedule'>
+                                            <DoctorSchedule 
+                                                doctorId={item}
+                                            />
+                                        </div>
+                                        <div className='e-d-r-medical-address'>
+                                            <MedicalAddressDoctor 
+                                                doctorId={item}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                )
+                            }) 
+                        }
+                    </div>           
+                </div>
+            </>
+            
         );
     }
 }

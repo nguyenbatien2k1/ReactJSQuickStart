@@ -1,0 +1,54 @@
+.d-s-intro {
+    margin-top: 60px;
+    height: 300px;
+    border: 1px solid yellowgreen;
+}
+
+.detail-specialty-container {
+    background-color: #eee;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        
+        .each-doctor {
+            display: flex;
+            box-shadow: 0 1px 6px #20212447;
+            border-radius: 16px;
+            background-color: #fff;
+            padding: 32px 0;
+    
+            .e-d-left {
+                width: 50%;
+                padding: 8px 16px;
+                border-right: 1px solid #ddd;
+
+                .e-d-l-profile-doctor {
+                    width: 100%;
+                }
+
+                .doctor-info-container {
+                    background-color: #fff;
+                }
+            }
+    
+            .e-d-right {
+                width: 50%;
+                padding: 8px 16px;
+
+                .e-d-r-doctor-schedule {
+
+                    .doctor-schedule-container {
+                        border: none;
+                    }
+                }
+
+                .e-d-r-medical-address {
+
+                }
+            }
+        }
+    }
+
+}
