@@ -6,6 +6,7 @@ import {FormattedMessage } from 'react-intl';
 import { withRouter } from 'react-router-dom';
 import { userService } from '../../../services';
 import { LANGUAGES } from '../../../utils';
+import _ from 'lodash';
 
 class MedicalAddressDoctor extends Component {
 
@@ -33,7 +34,7 @@ class MedicalAddressDoctor extends Component {
         
         let res = await userService.getMedicalAddressDoctorById(doctorId);
 
-        if(res && res.errCode === 0) {
+        if(res && res.errCode === 0 && !_.isEmpty(res) && !_.isEmpty(res.data)) {
             this.setState({
                 nameClinic: res.data.nameClinic,
                 addressClinic: res.data.addressClinic,

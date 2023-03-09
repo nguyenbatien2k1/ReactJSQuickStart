@@ -21,6 +21,7 @@ import HomePage from './HomePage/HomePage.js';
 import CustomScrollbars from '../components/CustomScrollbars';
 import Doctor from '../routes/Doctor';
 import VerifyBookAppointment from './Patient/VerifyBookAppointment';
+import DetailSpecialty from './Patient/Specialty/DetailSpecialty';
 
 class App extends Component {
 
@@ -57,6 +58,7 @@ class App extends Component {
                                     <Route path={path.DOCTOR} component={userIsAuthenticated(Doctor)} />
                                     <Route path={path.HOMEPAGE} component={HomePage} />
                                     <Route path={path.DETAIL_DOCTOR} component = {DetailDoctor} />                       
+                                    <Route path={path.DETAIL_SPECIALTY} component = {DetailSpecialty} />                       
                                     <Route path={path.VERIFY_BOOK_APPOINTMENT} component = {VerifyBookAppointment} />                       
                                 </Switch>
                             </CustomScrollbars>

@@ -75,7 +75,9 @@
         "choose-address-clinic": "Địa chỉ phòng khám",
         "note": "Ghi chú",
         "save": "Lưu thông tin",
-        "create": "Tạo mới thông tin"
+        "create": "Tạo mới thông tin",
+        "choose-specialty": "Chọn chuyên khoa",
+        "choose-clinic": "Chọn phòng khám"
     },
     "manage-schedule": {
         "title": "Quản lý kế hoạch khám bệnh của bác sĩ",
