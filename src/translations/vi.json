@@ -61,7 +61,8 @@
     },
     "home-page": {
         "outstanding-doctor": "Bác sĩ nổi bật tuần qua",
-        "see-more": "Xem thêm"
+        "see-more": "Xem thêm",
+        "popular-specialty": "Chuyên khoa phổ biến"
     },
     "manage-doctor": {
         "title": "Tạo thêm thông tin bác sĩ",

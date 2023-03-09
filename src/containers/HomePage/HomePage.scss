@@ -2,7 +2,7 @@
     padding-bottom: 24px;
 
     .img-custom {
-        border: 1px solid #eee;
+        // border: 1px solid #eee;
     }
 
     &.section-specialty {
@@ -110,6 +110,10 @@
     
     .img-custom {
 
+        &:hover {
+            color: #45c3d2;
+        }
+
         .outer-bg {
             display: flex;
             justify-content: center;
@@ -128,11 +132,12 @@
             }
 
             &.section-specialty {
-                background-image: url('../../assets/specialty/co-xuong-khop.jpg');
+                // background-image: url('../../assets/specialty/co-xuong-khop.jpg');
             }
 
             &.section-medical-facility {
                 background-image: url('../../assets/medicalfacility/xu-ti.jpg');
+                border: 1px solid #eee;
             }
 
             &.section-outstanding-doctor {
@@ -147,6 +152,14 @@
                 background-image: url('../../assets/handbook/handbook.png');
             }
 
+        }
+    }
+
+    .color-name-specialty {
+        cursor: pointer;
+
+        &:hover {
+            color: #45c3d2;
         }
     }
 

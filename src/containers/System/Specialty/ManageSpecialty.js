@@ -27,7 +27,7 @@ class ManageSpecialty extends Component {
            nameSpecialty: '',
            imageSpecialty: '',
            descriptionHTML: '',
-           descriptionMarkdown: ''
+           descriptionMarkdown: '',
         }
     }
 
@@ -48,7 +48,7 @@ class ManageSpecialty extends Component {
         if(file) {
             let base64 = await CommonUtils.getBase64(file);
             this.setState({
-                imageSpecialty: base64
+                imageSpecialty: base64,
             })
         }
     }
@@ -61,10 +61,23 @@ class ManageSpecialty extends Component {
     };
 
     handleSaveInfo = async () => {
-        console.log(this.state);
+        this.setState({
+            nameSpecialty: '',
+            imageSpecialty: '',
+            descriptionHTML: '',
+            descriptionMarkdown: '',
+        }, () => {
+            console.log(this.state)
+        })
         let res = await userService.createNewSpecialty(this.state);
         if(res && res.errCode === 0) {
             toast.success('Create a new specialty success!');
+            this.setState({
+                nameSpecialty: '',
+                imageSpecialty: '',
+                descriptionHTML: '',
+                descriptionMarkdown: ''
+            })
         }
         else {
             toast.error('Error...')
