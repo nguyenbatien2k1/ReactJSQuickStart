@@ -75,6 +75,10 @@ const userService = {
 
     getAllSpecialty() {
         return axios.get(`/api/get-all-specialty`);
+    },
+
+    getDetailSpecialtyById(specialtyId, location) {
+        return axios.get(`/api/get-detail-specialty-by-id?specialtyId=${specialtyId}&location=${location}`)
     }
 }
 

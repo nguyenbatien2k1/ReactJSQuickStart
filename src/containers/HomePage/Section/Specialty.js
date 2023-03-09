@@ -36,7 +36,7 @@ class Specialty extends Component {
     }
 
     handleDetailSpecialty = (item) => {
-        console.log(item)
+        // console.log(item)
         this.props.history.push(`/detail-specialty/${item.id}`)
     }
 
@@ -57,7 +57,7 @@ class Specialty extends Component {
                                 dataSpecialty && dataSpecialty.length > 0 &&
                                 dataSpecialty.map((item, index) => {
                                     return (
-                                        <>
+                                        <div key={index}>
                                             <div className='img-custom' 
                                                 key={index}
                                                 onClick={() => this.handleDetailSpecialty(item)}
@@ -67,7 +67,7 @@ class Specialty extends Component {
                                                 ></div>
                                                 <div>{this.props.language === LANGUAGES.VI ? item.nameVi : item.nameEn}</div>
                                             </div>
-                                        </>
+                                        </div>
                                     )
                                 })
                             }         

@@ -20,12 +20,39 @@ class DetailSpecialty extends Component {
         super(props);
         
         this.state = {
-            listDoctor: [26, 25],
+            detailSpecialty: {},
+            listDoctor: [],
+            listProvince: []
         }
     }
 
     async componentDidMount() {
-       
+       let specialtyId = this.props.match.params.specialtyId;
+
+       let res = await userService.getDetailSpecialtyById(specialtyId, 'ALL');
+
+       let resProvince = await userService.getAllCodeService('PROVINCE'); 
+
+       if(res && res.errCode === 0 && resProvince && resProvince.errCode === 0) {
+            let {listDoctor, listProvince} = this.state;
+
+            listProvince = resProvince.data;
+            
+            let dataDoctor = res && !_.isEmpty(res.data) && res.data.doctorSpecialty;
+
+            if(dataDoctor && dataDoctor.length > 0) {
+                dataDoctor.map(item => {
+                    listDoctor.push(item.doctorId)
+                })
+            }
+            this.setState({
+                detailSpecialty: res.data,
+                listDoctor: listDoctor,
+                listProvince: listProvince
+            }, () => {
+                console.log(this.state.listProvince)
+            })
+       }
     }
 
    
@@ -35,17 +62,44 @@ class DetailSpecialty extends Component {
        }
     }
 
+    handleOnChangeSelect = (e) => {
+        console.log(e.target.value)
+    }
+
 
     render() {
 
-        const {listDoctor} = this.state
+        const {listDoctor, detailSpecialty, listProvince} = this.state
+        const {language} = this.props;
+
 
         return (
             <>
                 <HomeHeader />
-                <div className='d-s-intro'></div>
+                <div className='d-s-intro'>
+                    {
+                        detailSpecialty && !_.isEmpty(detailSpecialty) &&
+                        <div dangerouslySetInnerHTML={{__html: detailSpecialty.descriptionHTML}}></div>           
+                    }
+                </div>
+                
                 <div className='detail-specialty-container py-3'>
                     <div className='container'>
+                        <div className='search-specialty-doctor'>
+                        <select onChange={(e) => this.handleOnChangeSelect(e)}>
+                            {
+                                listProvince && listProvince.length > 0 &&
+                                listProvince.map((item, index) => {
+                                    return (
+                                        <option 
+                                            key={index}
+                                            value={item.key}
+                                        >{language === LANGUAGES.VI ? item.valueVi : item.valueEn}</option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </div>
                         {
                             listDoctor && listDoctor.length > 0 &&
                             listDoctor.map((item, index) => {
