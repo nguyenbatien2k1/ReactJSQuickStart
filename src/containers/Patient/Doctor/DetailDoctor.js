@@ -80,7 +80,8 @@ class DetailDoctor extends Component {
                 />
               </div>
               <div className="content-right">
-                <MedicalAddressDoctor 
+                <MedicalAddressDoctor
+                  doctorId={this.props.match.params.doctorId} 
                   priceData={detailDoctor && detailDoctor.Doctor_Info && detailDoctor.Doctor_Info.priceData}
                 />
               </div>

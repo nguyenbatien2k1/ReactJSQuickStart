@@ -17,6 +17,7 @@ import Select from "react-select";
 import { toast } from "react-toastify";
 import moment from "moment";
 import localization from "moment/locale/vi";
+import _ from "lodash";
 
 
 
@@ -36,9 +37,9 @@ class BookingModal extends Component {
 
       address: '',
       reason: '',
-      // price: this.props.language === LANGUAGES.VI ? this.props.priceData.valueVi : this.props.priceData.valueEn,
-      price: this.buildPrice(this.props.priceData),
-      doctorId: this.props.match.params.doctorId,
+
+      price: '',
+      doctorId: this.props.doctorId,
       doctorName: '',
 
       timeType: this.props.dataScheduleTime.timeType,
@@ -50,7 +51,13 @@ class BookingModal extends Component {
   }
 
   async componentDidMount() {
-    let res = await this.getDataProfileDoctor(this.props.match.params.doctorId);
+    let res = await this.getDataProfileDoctor(this.props.doctorId);
+
+    let resPrice = await userService.getMedicalAddressDoctorById(this.props.doctorId);
+    let price = '';
+    if(resPrice && resPrice.errCode === 0) {
+      price = this.props.language === LANGUAGES.VI ? resPrice.data.priceData.valueVi : resPrice.data.priceData.valueEn;
+    }
 
     this.props.getGender();
     
@@ -58,16 +65,28 @@ class BookingModal extends Component {
       detailDoctor: res,
       timeVi: this.formatTimeMoment().timeVi,
       timeEn: this.formatTimeMoment().timeEn,
+      price: this.buildPrice(price)
     })
 
   }
 
   async componentDidUpdate(prevProps, prevState, snapshot) {
     if(prevProps.language !== this.props.language) {
-      let res = await this.getDataProfileDoctor(this.props.match.params.doctorId);
+      let res = await this.getDataProfileDoctor(this.props.doctorId);
+
+      let resPrice = await userService.getMedicalAddressDoctorById(this.props.doctorId);
+      let price = '';
+      if(resPrice && resPrice.errCode === 0) {
+        price = this.props.language === LANGUAGES.VI ? resPrice.data.priceData.valueVi : resPrice.data.priceData.valueEn;
+      }
+
+      this.props.getGender();
+      
       this.setState({
         detailDoctor: res,
-        genders: this.buildDataGenders(this.props.genders)
+        timeVi: this.formatTimeMoment().timeVi,
+        timeEn: this.formatTimeMoment().timeEn,
+        price: this.buildPrice(price)
       })
     }
 
@@ -78,9 +97,41 @@ class BookingModal extends Component {
     }
 
     if(prevProps.dataScheduleTime !== this.props.dataScheduleTime) {
+
+      let res = await this.getDataProfileDoctor(this.props.doctorId);
+
+      let resPrice = await userService.getMedicalAddressDoctorById(this.props.doctorId);
+      let price = '';
+      if(resPrice && resPrice.errCode === 0) {
+        price = this.props.language === LANGUAGES.VI ? resPrice.data.priceData.valueVi : resPrice.data.priceData.valueEn;
+      }
+
+      this.props.getGender();
+      
       this.setState({
+        detailDoctor: res,
         timeVi: this.formatTimeMoment().timeVi,
-        timeEn: this.formatTimeMoment().timeEn
+        timeEn: this.formatTimeMoment().timeEn,
+        price: this.buildPrice(price)
+      })
+    }
+
+    if(prevProps.doctorId !== this.props.doctorId) {
+      let res = await this.getDataProfileDoctor(this.props.doctorId);
+
+      let resPrice = await userService.getMedicalAddressDoctorById(this.props.doctorId);
+      let price = '';
+      if(resPrice && resPrice.errCode === 0) {
+        price = this.props.language === LANGUAGES.VI ? resPrice.data.priceData.valueVi : resPrice.data.priceData.valueEn;
+      }
+
+      this.props.getGender();
+      
+      this.setState({
+        detailDoctor: res,
+        timeVi: this.formatTimeMoment().timeVi,
+        timeEn: this.formatTimeMoment().timeEn,
+        price: this.buildPrice(price)
       })
     }
   }
@@ -214,8 +265,8 @@ class BookingModal extends Component {
     let priceVi = '', priceEn = '';
     let {language} = this.props;
     if(priceData) {
-      priceVi = `${new Intl.NumberFormat('vi-VI').format(priceData.valueVi)} VNĐ`;
-      priceEn = `${new Intl.NumberFormat('vi-VI').format(priceData.valueEn)} USD`;
+      priceVi = `${new Intl.NumberFormat('vi-VI').format(priceData)} VNĐ`;
+      priceEn = `${new Intl.NumberFormat('en-EN').format(priceData)} USD`;
     }
 
     return language === LANGUAGES.VI ? priceVi : priceEn;
@@ -223,7 +274,9 @@ class BookingModal extends Component {
 
   render() {
     let isOpenModal = this.props.isOpenModal
-    let doctorId = this.props.match.params.doctorId || 0;
+    let doctorId = this.props.doctorId;
+
+
 
     return (
             <Modal 
@@ -246,8 +299,10 @@ class BookingModal extends Component {
                   <div className="doctor-info">
                     <ProfileDoctor
                         doctorId={doctorId}
-                        dataScheduleTime={this.props.dataScheduleTime}
-                        formatTimeMoment={this.formatTimeMoment}
+                        isShowSeeMore={false}
+                        // dataScheduleTime={this.props.dataScheduleTime}
+                        // formatTimeMoment={this.formatTimeMoment}
+                        // time={}
                     />
                   </div>
                   {/* <span><FormattedMessage id="patient.modal.price" />: </span><span>{this.props.language === LANGUAGES.VI ? priceVi : priceEn}</span> */}

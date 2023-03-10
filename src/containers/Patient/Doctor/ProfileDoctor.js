@@ -8,6 +8,7 @@ import { userService } from '../../../services';
 import { FormattedMessage } from "react-intl";
 import moment from "moment";
 import localization from "moment/locale/vi";
+import { Link } from "react-router-dom";
 
 
 
@@ -16,12 +17,14 @@ class ProfileDoctor extends Component {
     super(props);
 
     this.state = {
-        data: {}
+        data: {},
+        dataProfileDoctor: {}
     };
   }
 
   async componentDidMount() {
       let res = await this.getDataProfileDoctor(this.props.doctorId);
+
       this.setState({
         data: {
           dataProfileDoctor: res,
@@ -39,7 +42,13 @@ class ProfileDoctor extends Component {
       }
 
       if(prevProps.doctorId !== this.props.doctorId) {
-        
+        let res = await this.getDataProfileDoctor(this.props.doctorId);
+        this.setState({
+          data: {
+            dataProfileDoctor: res,
+            dataScheduleTime: this.props.dataScheduleTime
+          }
+        })
       }
   }
 
@@ -78,9 +87,8 @@ class ProfileDoctor extends Component {
   render() {
 
       let {dataProfileDoctor, dataScheduleTime} = this.state.data;
-      let {language} = this.props;
+      let {language, isShowSeeMore, doctorId} = this.props;
       let nameDoctorVi ='', nameDoctorEn='';
-      let {timeVi, timeEn} = this.formatTimeMoment();
       let nameClinic = '', addressClinic = '', priceVi = '', priceEn = '';
 
       if(dataProfileDoctor && dataProfileDoctor.positionData) {
@@ -100,11 +108,15 @@ class ProfileDoctor extends Component {
 
       return (
         <div className="doctor-info-container">
-              <div 
-                  className="left"
-                  style={{backgroundImage: `url(${dataProfileDoctor && dataProfileDoctor.image ? dataProfileDoctor.image : ''})`,
+              <div className="left">
+                <div className="l-img" style={{backgroundImage: `url(${dataProfileDoctor && dataProfileDoctor.image ? dataProfileDoctor.image : ''})`,
                           backgroundPosition: 'center center', backgroundSize: 'cover', backgroundRepeat: 'no-repeat'}}
-              ></div>
+                ></div>
+                {
+                  isShowSeeMore ?
+                  <Link to={`/detail-doctor/${doctorId}`} className="see-more"><FormattedMessage id="home-page.see-more" /></Link> : ''
+                }
+              </div>
               <div className="right">
                   <div className="booking"><FormattedMessage id="patient.modal.booking" /></div>
                   <div className="name-doctor">
@@ -114,7 +126,6 @@ class ProfileDoctor extends Component {
                   </div>
                   <div className="nameClinic">{nameClinic ? nameClinic : ''}</div>
                   <div className="addressClinic">{addressClinic ? addressClinic : ''}</div>
-                  <div className="time">{language === LANGUAGES.VI ? timeVi : timeEn}</div>
               </div>
         </div>
       )

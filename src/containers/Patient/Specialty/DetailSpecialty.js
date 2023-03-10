@@ -36,7 +36,15 @@ class DetailSpecialty extends Component {
        if(res && res.errCode === 0 && resProvince && resProvince.errCode === 0) {
             let {listDoctor, listProvince} = this.state;
 
+
             listProvince = resProvince.data;
+
+            listProvince.unshift({
+                key: "ALL",
+                type: "PROVINCE",
+                valueVi: "Toàn quốc",
+                valueEn: "All"
+            })
             
             let dataDoctor = res && !_.isEmpty(res.data) && res.data.doctorSpecialty;
 
@@ -49,8 +57,6 @@ class DetailSpecialty extends Component {
                 detailSpecialty: res.data,
                 listDoctor: listDoctor,
                 listProvince: listProvince
-            }, () => {
-                console.log(this.state.listProvince)
             })
        }
     }
@@ -60,10 +66,42 @@ class DetailSpecialty extends Component {
        if(prevProps.language !== this.props.language) {
 
        }
+
+    //    if(prevProps.listDoctor !== this.props.listDoctor) {
+    //     console.log(this.props.listDoctor)
+    //     this.setState({
+    //         listDoctor: this.props.listDoctor
+    //     })
+    //    }
     }
 
-    handleOnChangeSelect = (e) => {
-        console.log(e.target.value)
+    handleOnChangeSelect = async (e) => {
+
+        let specialtyId = this.props.match.params.specialtyId;
+
+        let res = await userService.getDetailSpecialtyById(specialtyId, e.target.value);
+
+        if(res && res.errCode === 0) {
+
+            let listDoctor = [];
+
+            let arr = res.data;
+
+            if(arr && !_.isEmpty(arr)) {
+                let data = arr.doctorSpecialty;
+                
+                if(data && data.length > 0) {
+                    data.map(item => {
+                        return listDoctor.push(item.doctorId);
+                    })
+                }
+            }
+
+            this.setState({
+                detailSpecialty: res.data,
+                listDoctor: listDoctor,
+            })
+       }
     }
 
 
@@ -76,58 +114,67 @@ class DetailSpecialty extends Component {
         return (
             <>
                 <HomeHeader />
-                <div className='d-s-intro'>
-                    {
-                        detailSpecialty && !_.isEmpty(detailSpecialty) &&
-                        <div dangerouslySetInnerHTML={{__html: detailSpecialty.descriptionHTML}}></div>           
-                    }
+                <div className='d-s-intro p-3'>
+                        <div className='container'>
+                            {
+                                detailSpecialty && !_.isEmpty(detailSpecialty) &&
+                                <div dangerouslySetInnerHTML={{__html: detailSpecialty.descriptionHTML}}></div>           
+                            }
+                        </div>                  
                 </div>
                 
                 <div className='detail-specialty-container py-3'>
                     <div className='container'>
                         <div className='search-specialty-doctor'>
-                        <select onChange={(e) => this.handleOnChangeSelect(e)}>
-                            {
-                                listProvince && listProvince.length > 0 &&
-                                listProvince.map((item, index) => {
-                                    return (
-                                        <option 
-                                            key={index}
-                                            value={item.key}
-                                        >{language === LANGUAGES.VI ? item.valueVi : item.valueEn}</option>
-                                    )
-                                })
-                            }
-                        </select>
-                    </div>
+                            <select onChange={(e) => this.handleOnChangeSelect(e)}>
+                                {
+                                    listProvince && listProvince.length > 0 &&
+                                    listProvince.map((item, index) => {
+                                        return (
+                                            <option 
+                                                key={index}
+                                                value={item.key}
+                                            >{language === LANGUAGES.VI ? item.valueVi : item.valueEn}</option>
+                                        )
+                                    })
+                                }
+                            </select>
+                        </div>
                         {
-                            listDoctor && listDoctor.length > 0 &&
-                            listDoctor.map((item, index) => {
-                            return (
-                                <div className='each-doctor' key={index}>
-                                    <div className='e-d-left'>
-                                        <div className='e-d-l-profile-doctor'>
-                                            <ProfileDoctor
-                                                doctorId={item}
-                                            />
+                            listDoctor && listDoctor.length > 0 ?
+                            <>
+                            {
+                                    listDoctor && listDoctor.length > 0 &&
+                                    listDoctor.map((item, index) => {
+                                    return (
+                                    <div className='each-doctor' key={index}>
+                                        <div className='e-d-left'>
+                                            <div className='e-d-l-profile-doctor'>
+                                                <ProfileDoctor
+                                                    doctorId={item}
+                                                    isShowSeeMore={true}
+                                                />
+                                            </div>
+                                        </div>
+                                        
+                                        <div className='e-d-right'>
+                                            <div className='e-d-r-doctor-schedule'>
+                                                <DoctorSchedule 
+                                                    doctorId={item}
+                                                />
+                                            </div>
+                                            <div className='e-d-r-medical-address'>
+                                                <MedicalAddressDoctor 
+                                                    doctorId={item}
+                                                />
+                                            </div>
                                         </div>
                                     </div>
-                                    
-                                    <div className='e-d-right'>
-                                        <div className='e-d-r-doctor-schedule'>
-                                            <DoctorSchedule 
-                                                doctorId={item}
-                                            />
-                                        </div>
-                                        <div className='e-d-r-medical-address'>
-                                            <MedicalAddressDoctor 
-                                                doctorId={item}
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                                )
-                            }) 
+                                    )
+                                }) 
+                            }
+                            </>
+                            : <div className='no-data'>Không có dữ liệu...</div>
                         }
                     </div>           
                 </div>

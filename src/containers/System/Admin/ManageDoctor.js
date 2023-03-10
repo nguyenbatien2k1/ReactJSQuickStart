@@ -121,8 +121,8 @@ class ManageDoctor extends Component {
     let {listPrice, listPayment, listProvince, listSpecialty} = this.state;
 
     let res = await userService.getDetailDoctor(selectedDoctor.value);
-    if (res && res.errCode === 0 && res.data && res.data.Markdown) {
-      let markdown = res.data.Markdown;
+
+    if (res && res.errCode === 0 && res.data) {
 
       let priceId = '',
           paymentId = '',
@@ -151,27 +151,34 @@ class ManageDoctor extends Component {
         selectedProvince = listProvince.find(item => item.value === provinceId);
 
         selectedSpecialty = listSpecialty.find(item => item.value === specialtyId)
-
+        this.setState({
+          // contentHTML: markdown ? markdown.contentHTML : '',
+          // contentMarkdown: markdown ? markdown.contentMarkdown : '',
+          // description: markdown ? markdown.description : '',
+          hasOldData: true,
+          action: CRUD_ACTIONS.EDIT,
+          
+          //
+          selectedPrice,
+          selectedPayment,
+          selectedProvince,
+          nameClinic,
+          addressClinic,
+          note,
+          selectedSpecialty,
+  
+          //
+        });
+      }
+      if(res.data.Markdown) {
+        let markdown = res.data.Markdown;
+        this.setState({
+        contentHTML: markdown ? markdown.contentHTML : '',
+        contentMarkdown: markdown ? markdown.contentMarkdown : '',
+        description: markdown ? markdown.description : '',
+      })
       }
 
-      this.setState({
-        contentHTML: markdown.contentHTML,
-        contentMarkdown: markdown.contentMarkdown,
-        description: markdown.description,
-        hasOldData: true,
-        action: CRUD_ACTIONS.EDIT,
-        
-        //
-        selectedPrice,
-        selectedPayment,
-        selectedProvince,
-        nameClinic,
-        addressClinic,
-        note,
-        selectedSpecialty,
-
-        //
-      });
     }
     
     else {
@@ -206,6 +213,10 @@ class ManageDoctor extends Component {
   }
 
   handleSaveInfo = () => {
+
+    // console.log(this.state)
+
+    // return ;
 
     this.props.createInfoDoctor({
       doctorId: this.state.selectedDoctor.value,

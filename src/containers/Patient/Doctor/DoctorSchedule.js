@@ -44,8 +44,27 @@ class DoctorSchedule extends Component {
         })
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
+    async componentDidUpdate(prevProps, prevState, snapshot) {
         if(prevProps.language !== this.props.language) {
+            this.setState({
+                allDays: this.setAllDays(this.props.language)
+            })
+        }
+
+        if(prevProps.doctorId !== this.props.doctorId) {
+            let allDays = this.setAllDays(this.props.language);
+
+            if(allDays && allDays.length > 0) {
+                // let doctorId = this.props.match.params.doctorId;
+                let doctorId = this.props.doctorId;
+                let res = await userService.getScheduleDoctorByDate(doctorId, allDays[0].value);
+                if(res && res.errCode === 0) {
+                    this.setState({
+                        allAvailableTime: res.data
+                    })
+                }
+            }
+
             this.setState({
                 allDays: this.setAllDays(this.props.language)
             })
@@ -169,6 +188,7 @@ class DoctorSchedule extends Component {
                     handleCloseModal={this.handleCloseModal}
                     dataScheduleTime={dataScheduleTime}
                     priceData={this.props.priceData}
+                    doctorId={this.props.doctorId}
                 />
             }
             </>
