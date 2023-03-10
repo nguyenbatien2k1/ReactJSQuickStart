@@ -79,7 +79,11 @@ const userService = {
 
     getDetailSpecialtyById(specialtyId, location) {
         return axios.get(`/api/get-detail-specialty-by-id?specialtyId=${specialtyId}&location=${location}`)
-    }
+    },
+
+    createNewClinic(data) {
+        return axios.post(`/api/create-new-clinic`, data);
+    },
 }
 
 export default userService;
