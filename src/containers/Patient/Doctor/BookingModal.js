@@ -45,7 +45,6 @@ class BookingModal extends Component {
       timeType: this.props.dataScheduleTime.timeType,
 
       time: '',
-      // timeEn: ''
 
     };
   }
@@ -109,7 +108,9 @@ class BookingModal extends Component {
       this.setState({
         detailDoctor: res,
         time: this.formatTimeMoment(),
-        price: this.buildPrice(price)
+        price: this.buildPrice(price),
+        date: this.props.dataScheduleTime.date,
+        timeType: this.props.dataScheduleTime.timeType
       })
     }
 
@@ -218,7 +219,7 @@ class BookingModal extends Component {
       timeType: this.state.timeType,
       time: this.state.time,
       language: this.props.language
-    }    
+    }  
     
     if(this.checkValidateInput(data)) {      
       let res = await userService.postBookAppointment(data);

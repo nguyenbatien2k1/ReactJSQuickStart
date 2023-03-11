@@ -92,6 +92,10 @@ const userService = {
     getDetailClinicById(clinicId) {
         return axios.get(`/api/get-detail-clinic-by-id?clinicId=${clinicId}`)
     },
+
+    getAllPatientForDoctor(doctorId, date) {
+        return axios.get(`/api/get-list-patient?doctorId=${doctorId}&date=${date}`)
+    },
 }
 
 export default userService;

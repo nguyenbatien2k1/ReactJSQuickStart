@@ -24,7 +24,6 @@ class Header extends Component {
 
     componentDidMount() {
         let {userInfo} = this.props
-        console.log(userInfo)
         if(userInfo && !_.isEmpty(userInfo)) {
             let role = userInfo.roleId;
             if(role === USER_ROLE.ADMIN) {

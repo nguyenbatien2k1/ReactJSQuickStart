@@ -20,11 +20,15 @@ class ManagePatient extends Component {
         super(props);
         
         this.state = {
-            currentDate: new Date()
+            currentDate: new Date(),
+            listPatient: []
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
+        const {userInfo} = this.props;
+        let {currentDate} = this.state;
+        this.getDataPatient(userInfo.id, currentDate);
 
     }
 
@@ -32,14 +36,42 @@ class ManagePatient extends Component {
         
     }
 
-    handleOnchangeDatePicker = (data) => {
+    getDataPatient =  async (userInfo, date) => {
+
+        let currentDate = moment(new Date(date)).format('DD/MM/YYYY');
+
+        let res = await userService.getAllPatientForDoctor(userInfo, currentDate)
+
+        if(res && res.errCode === 0) {
+            this.setState({
+                listPatient: res.data
+            })
+        }
+    }
+
+    handleOnchangeDatePicker = async (data) => {
         
         this.setState({
             currentDate: data[0]
         })
+
+        const {userInfo} = this.props;
+        let {currentDate} = this.state;
+        this.getDataPatient(userInfo.id, currentDate);
+    }
+
+    handleEditUser = () => {
+        alert('hi')
+    }
+
+    handleDeleteUser = () => {
+        alert('hello')
     }
 
     render() {
+
+        let {listPatient} = this.state;
+        
         return (
             <div className='manage-patient-container'>
                 <div className='container'>
@@ -56,23 +88,35 @@ class ManagePatient extends Component {
                     <table id="table-manage-patient">
                         <tbody>
                             <tr>
-                                <th>Email</th>
-                                <th>FirstName</th>
-                                <th>LastName</th>
+                                <th>STT</th>
+                                <th>Fullname</th>
+                                <th>PhoneNumber</th>
                                 <th>Address</th>
+                                <th>Giới tính</th>
+                                <th>Thời gian khám</th>
+                                <th>Ngày khám</th>
                                 <th>Actions</th>
                             </tr>
-                            <tr>
-                                <td>{`user.email`}</td>
-                                <td>{`user.firstName`}</td>
-                                <td>{`user.lastName`}</td>
-                                <td>{`user.address`}</td>
-                                <td>
-                                    {/* <button className='btn-edit' onClick={() => this.handleEditUser(patient)}><i className="fas fa-edit"></i></button>
-                                    <button className='btn-delete' onClick={() => this.handleDeleteUser(user)}><i className="fas fa-trash-alt"></i></button> */}
-                                    abc
-                                </td>
-                            </tr>
+                            {
+                                listPatient && listPatient.length > 0 &&
+                                listPatient.map((item, index) => {
+                                    return (
+                                        <tr key={index}>
+                                            <td>{index+1}</td>
+                                            <td>{item.fullname}</td>
+                                            <td>{item.phonenumber}</td>
+                                            <td>{item.patientData && item.patientData.address}</td>
+                                            <td>{item.patientData && item.patientData.genderData && this.props.language === LANGUAGES.VI ? item.patientData.genderData.valueVi : item.patientData.genderData.valueEn}</td>
+                                            <td>{item.timeTypeDataPatient && this.props.language === LANGUAGES.VI ? item.timeTypeDataPatient.valueVi : item.timeTypeDataPatient.valueEn}</td>                                      
+                                            <td>{item.date}</td>                                      
+                                            <td className='btn-actions'>
+                                                <button className='btn btn-success' onClick={(e) => this.handleEditUser(e)}>Xác nhận</button>
+                                                <button className='btn btn-warning' onClick={(e) => this.handleDeleteUser(e)}>Gửi hóa đơn</button>
+                                            </td>
+                                        </tr>
+                                    )
+                                })
+                            }
                         </tbody>
                     </table>
                     </div>
@@ -86,6 +130,7 @@ const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
         language: state.app.language,
+        userInfo: state.user.userInfo
     };
 };
 
