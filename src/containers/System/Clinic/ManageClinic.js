@@ -89,12 +89,12 @@ class ManageClinic extends Component {
 
         return (
             <div className='manage-clinic-container p-3'>
-            <div className='title my-3'>Quản lý phòng khám / Cơ sở y tế</div>
+            <div className='title my-3'><FormattedMessage id="manage-clinic.title" /></div>
             <div className='container'>
 
             <div className='name-clinic row'>
                 <div className='col-4 form-group'>
-                    <label>Tên phòng khám / Cơ sở y tế</label>
+                    <label><FormattedMessage id="manage-clinic.name-clinic" /></label>
                     <input 
                         value={this.state.nameClinic}
                         className='form-control'
@@ -103,7 +103,7 @@ class ManageClinic extends Component {
                 </div>
 
                 <div className='col-8 form-group'>
-                    <label>Chọn ảnh phòng khám/Cơ sở y tế:</label>
+                    <label><FormattedMessage id="manage-clinic.choose-image-clinic" /></label>
                     <input 
                         type='file' className='form-control-file' 
                         onChange={(e) => this.handleChangeImage(e)}
@@ -111,7 +111,7 @@ class ManageClinic extends Component {
                 </div>
 
                 <div className='form-group col-6'>
-                    <label>Địa chỉ</label>
+                    <label><FormattedMessage id="manage-clinic.address" /></label>
                     <textarea
                         rows={3} 
                         value={this.state.addressClinic}

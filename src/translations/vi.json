@@ -85,6 +85,13 @@
         "choose-date": "Chọn ngày:",
         "save-info": "Lưu thông tin"
     },
+    "manage-clinic": {
+        "title": "Quản lý phòng khám/cơ sở y tế",
+        "name-clinic": "Tên phòng khám/cơ sở y tế",
+        "choose-image-clinic": "Chọn ảnh phòng khám/cơ sở y tế",
+        "address": "Địa chỉ phòng khám/cơ sở y tế",
+        "no-data": "Không có dữ liệu"
+    },
     "patient": {
         "detail-doctor": {
             "schedule": "Lịch khám",

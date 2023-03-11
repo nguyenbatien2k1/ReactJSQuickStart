@@ -17,12 +17,12 @@
         background: #f5f5f5;
 
         .border-custom {
-            border: 1px solid orangered;
+            border: 1px solid rgb(236, 55, 49);
             padding: 8px;
             cursor: pointer;
 
             &:hover {
-                background-color: #ddd;
+                background-color: #eee;
             }
 
             .img-custom {
@@ -109,6 +109,9 @@
     }
     
     .img-custom {
+        cursor: pointer;
+        color: unset;
+        text-decoration: none;
 
         &:hover {
             color: #45c3d2;
@@ -126,6 +129,7 @@
             background-size: cover;
             height: 150px;
             min-width: 278px;
+            object-fit: cover;
 
             &:hover {
                 cursor: pointer;
@@ -138,6 +142,9 @@
             &.section-medical-facility {
                 // background-image: url('../../assets/medicalfacility/xu-ti.jpg');
                 border: 1px solid #eee;
+                width: 100%;
+                background-size: cover;
+                
             }
 
             &.section-outstanding-doctor {

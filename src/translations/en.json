@@ -85,6 +85,13 @@
         "choose-date": "Choose Date:",
         "save-info": "Save Info"
     },
+    "manage-clinic": {
+        "title": "Management Clinic / Medical Facility",
+        "name-clinic": "Name of clinic/medical facility",
+        "choose-image-clinic": "Choose a photo of the clinic/medical facility",
+        "address": "Address",
+        "no-data": "No Data"
+    },
     "patient": {
         "detail-doctor": {
             "schedule": "Schedule",

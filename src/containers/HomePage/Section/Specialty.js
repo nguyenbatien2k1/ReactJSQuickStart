@@ -64,7 +64,7 @@ class Specialty extends Component {
                                                 <div className='bg-image'
                                                     style={{backgroundImage: `url(${item.image})`}}
                                                 ></div>
-                                                <div>{this.props.language === LANGUAGES.VI ? item.nameVi : item.nameEn}</div>
+                                                <div className='mt-2'>{this.props.language === LANGUAGES.VI ? item.nameVi : item.nameEn}</div>
                                             </div>
                                         </div>
                                     )
