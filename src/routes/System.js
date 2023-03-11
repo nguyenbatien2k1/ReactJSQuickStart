@@ -7,27 +7,53 @@ import Header from '../containers/Header/Header';
 import ManageDoctor from '../containers/System/Admin/ManageDoctor';
 import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
 import ManageClinic from '../containers/System/Clinic/ManageClinic';
+import { USER_ROLE } from '../utils';
+import ManageSchedule from '../containers/System/Doctor/ManageSchedule';
 
 class System extends Component {
+
+    constructor(props) {
+        super(props);
+        
+        this.state = {
+            roleShow: false,
+        }
+    }
+    
+    componentDidMount() {
+        const { isLoggedIn, userInfo } = this.props;
+        if(isLoggedIn && userInfo.roleId === USER_ROLE.ADMIN) {
+            this.setState({
+                roleShow: true,
+            })
+        } 
+    }
+
     render() {
-        const { systemMenuPath, isLoggedIn } = this.props;
+        const { systemMenuPath, isLoggedIn, userInfo } = this.props;
 
         return (
-            <React.Fragment>
-                {isLoggedIn && <Header />}
-                <div className="system-container">
-                    <div className="system-list">
-                        <Switch>
-                            <Route path="/system/user-manage" component={UserManage} />
-                            <Route path="/system/crud-redux" component={UserRedux} />
-                            <Route path="/system/manage-doctor" component={ManageDoctor} />
-                            <Route path="/system/manage-specialty" component={ManageSpecialty} />
-                            <Route path="/system/manage-clinic" component={ManageClinic} />
-                            <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
-                        </Switch>
-                    </div>
-                </div>
-            </React.Fragment>
+
+            <>
+            {
+                this.state.roleShow ? 
+                <>
+                    <Header />
+                            <div className="system-container">
+                                <div className="system-list">
+                                    <Switch>
+                                        <Route path="/system/user-manage" component={UserManage} />
+                                        <Route path="/system/crud-redux" component={UserRedux} />
+                                        <Route path="/system/manage-doctor" component={ManageDoctor} />
+                                        <Route path="/system/manage-specialty" component={ManageSpecialty} />
+                                        <Route path="/system/manage-clinic" component={ManageClinic} />
+                                        <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
+                                    </Switch>
+                                </div>
+                            </div>
+                </> : ''
+            }
+            </>
         );
     }
 }
@@ -35,7 +61,8 @@ class System extends Component {
 const mapStateToProps = state => {
     return {
         systemMenuPath: state.app.systemMenuPath,
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn,
+        userInfo: state.user.userInfo
     };
 };
 

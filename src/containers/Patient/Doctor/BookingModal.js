@@ -44,8 +44,8 @@ class BookingModal extends Component {
 
       timeType: this.props.dataScheduleTime.timeType,
 
-      timeVi: '',
-      timeEn: ''
+      time: '',
+      // timeEn: ''
 
     };
   }
@@ -63,8 +63,7 @@ class BookingModal extends Component {
     
     this.setState({
       detailDoctor: res,
-      timeVi: this.formatTimeMoment().timeVi,
-      timeEn: this.formatTimeMoment().timeEn,
+      time: this.formatTimeMoment(),
       price: this.buildPrice(price)
     })
 
@@ -84,8 +83,7 @@ class BookingModal extends Component {
       
       this.setState({
         detailDoctor: res,
-        timeVi: this.formatTimeMoment().timeVi,
-        timeEn: this.formatTimeMoment().timeEn,
+        time: this.formatTimeMoment(),
         price: this.buildPrice(price)
       })
     }
@@ -110,8 +108,7 @@ class BookingModal extends Component {
       
       this.setState({
         detailDoctor: res,
-        timeVi: this.formatTimeMoment().timeVi,
-        timeEn: this.formatTimeMoment().timeEn,
+        time: this.formatTimeMoment(),
         price: this.buildPrice(price)
       })
     }
@@ -129,8 +126,7 @@ class BookingModal extends Component {
       
       this.setState({
         detailDoctor: res,
-        timeVi: this.formatTimeMoment().timeVi,
-        timeEn: this.formatTimeMoment().timeEn,
+        time: this.formatTimeMoment(),
         price: this.buildPrice(price)
       })
     }
@@ -148,10 +144,7 @@ class BookingModal extends Component {
       timeEn = `${dataScheduleTime.timeTypeData.valueEn} - ${dateEn}`;
     }
 
-    return {
-      timeVi,
-      timeEn
-    }
+    return language === LANGUAGES.VI ? timeVi : timeEn;
   }
 
   buildDataGenders = (data) => {
@@ -223,8 +216,7 @@ class BookingModal extends Component {
       reason: this.state.reason,
       price: this.state.price,
       timeType: this.state.timeType,
-      timeVi: this.state.timeVi,
-      timeEn: this.state.timeEn,
+      time: this.state.time,
       language: this.props.language
     }    
     
@@ -364,7 +356,7 @@ class BookingModal extends Component {
                     <div className="form-group col-5">
                       <label><FormattedMessage id="patient.modal.date" /></label>
                       <input className="form-control" placeholder="Ngày khám" 
-                        value={this.props.language === LANGUAGES.VI ? this.state.timeVi : this.state.timeEn}
+                        value={this.state.time}
                         onChange={(e) => this.handleChangeInput(e, 'date')}
                         disabled
                       />

@@ -22,7 +22,7 @@ class ManageSchedule extends Component {
         this.state = {
             selectedDoctor: {},
             doctors: [], 
-            currentDate: '',
+            currentDate: new Date(),
             schedules: []
         }
     }
@@ -72,7 +72,6 @@ class ManageSchedule extends Component {
       };
 
     handleOnchangeDatePicker = (data) => {
-        console.log(data)
         this.setState({
             currentDate: data[0]
         })
