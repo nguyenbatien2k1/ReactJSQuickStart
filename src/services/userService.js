@@ -96,6 +96,10 @@ const userService = {
     getAllPatientForDoctor(doctorId, date) {
         return axios.get(`/api/get-list-patient?doctorId=${doctorId}&date=${date}`)
     },
+
+    postSendRemedy(data) {
+        return axios.post(`/api/send-remedy`, data)
+    },
 }
 
 export default userService;

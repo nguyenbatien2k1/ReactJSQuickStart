@@ -12,6 +12,8 @@ import moment from 'moment';
 import { toast } from 'react-toastify';
 import _ from 'lodash';
 import { userService } from '../../../services';
+import RemedyModal from './RemedyModal';
+import LoadingOverlay from "react-loading-overlay";
 
 
 class ManagePatient extends Component {
@@ -21,26 +23,31 @@ class ManagePatient extends Component {
         
         this.state = {
             currentDate: new Date(),
-            listPatient: []
+            listPatient: [],
+            isOpen: false,
+            dataModal: {},
+            isShowLoading: false,
         }
     }
 
     async componentDidMount() {
-        const {userInfo} = this.props;
+        await this.getDataPatient();
+    }
+
+    async componentDidUpdate(prevProps, prevState, snapshot) {
+        // if(prevProps.listPatient !== this.props.listPatient) {
+        //     console.log('did update: ')
+        //     await this.getDataPatient();
+        // }
+    }
+
+    getDataPatient = async () => {
+
+        let {userInfo} = this.props;
         let {currentDate} = this.state;
-        this.getDataPatient(userInfo.id, currentDate);
 
-    }
-
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        
-    }
-
-    getDataPatient =  async (userInfo, date) => {
-
-        let currentDate = moment(new Date(date)).format('DD/MM/YYYY');
-
-        let res = await userService.getAllPatientForDoctor(userInfo, currentDate)
+        let formatDate = moment(new Date(currentDate)).format('DD/MM/YYYY');
+        let res = await userService.getAllPatientForDoctor(userInfo.id, formatDate);
 
         if(res && res.errCode === 0) {
             this.setState({
@@ -49,79 +56,149 @@ class ManagePatient extends Component {
         }
     }
 
-    handleOnchangeDatePicker = async (data) => {
+    handleOnchangeDatePicker = async (date) => {
         
         this.setState({
-            currentDate: data[0]
+            currentDate: date[0]
+        }, async () => {
+            let {userInfo} = this.props;
+            let {currentDate} = this.state;
+            await this.getDataPatient();
         })
 
-        const {userInfo} = this.props;
-        let {currentDate} = this.state;
-        this.getDataPatient(userInfo.id, currentDate);
     }
 
-    handleEditUser = () => {
-        alert('hi')
+    handleConfirm = (item) => {
+        let data = {
+            doctorId: item.doctorId,
+            patientId: item.patientId,
+            email: item.patientData.email,
+            timeType: item.timeType,
+            date: item.date,
+            fullname: item.fullname
+        }
+
+        this.setState({
+            isOpen: true,
+            dataModal: data
+        })
+
     }
 
-    handleDeleteUser = () => {
-        alert('hello')
+    handleCloseModal = () => {
+        this.setState({
+            isOpen: false,
+        })
+    }
+
+    sendRemedy = async (data) => {
+        let {dataModal} = this.state;
+        this.setState({
+            isShowLoading: true
+        })
+        let res = await userService.postSendRemedy({
+            email: data.email,
+            imgBase64: data.imgBase64,
+            tailFile: data.tailFile,
+            doctorId: dataModal.doctorId,
+            patientId: dataModal.patientId,
+            timeType: dataModal.timeType,
+            date: dataModal.date,
+            language: this.props.language,
+            fullname: dataModal.fullname,
+        })
+        if(res && res.errCode === 0) {
+            this.handleCloseModal();
+            this.setState({
+                isShowLoading: false
+            })
+            toast.success('Update Appointment OK');
+            setTimeout(async () => {
+                await this.getDataPatient();
+            }, 500)
+
+            
+        }
+        else {
+            this.setState({
+                isShowLoading: false
+            })
+            toast.error('Failed...')
+        }
     }
 
     render() {
 
-        let {listPatient} = this.state;
+        let {listPatient, isOpen, dataModal} = this.state;
+        let {language} = this.props;
         
         return (
-            <div className='manage-patient-container'>
-                <div className='container'>
-                    <div className='title'><FormattedMessage id="menu.doctor.manage-patient" /></div>
-                    <div className='form-group col-4'>
-                        <label>Chọn ngày khám bệnh</label>
-                        <DatePicker 
-                            className='form-control'
-                            onChange={this.handleOnchangeDatePicker}
-                            value={this.state.currentDate}
-                        />
-                    </div>
-                    <div className='col-12'>
-                    <table id="table-manage-patient">
-                        <tbody>
-                            <tr>
-                                <th>STT</th>
-                                <th>Fullname</th>
-                                <th>PhoneNumber</th>
-                                <th>Address</th>
-                                <th>Giới tính</th>
-                                <th>Thời gian khám</th>
-                                <th>Ngày khám</th>
-                                <th>Actions</th>
-                            </tr>
-                            {
-                                listPatient && listPatient.length > 0 &&
-                                listPatient.map((item, index) => {
-                                    return (
-                                        <tr key={index}>
-                                            <td>{index+1}</td>
-                                            <td>{item.fullname}</td>
-                                            <td>{item.phonenumber}</td>
-                                            <td>{item.patientData && item.patientData.address}</td>
-                                            <td>{item.patientData && item.patientData.genderData && this.props.language === LANGUAGES.VI ? item.patientData.genderData.valueVi : item.patientData.genderData.valueEn}</td>
-                                            <td>{item.timeTypeDataPatient && this.props.language === LANGUAGES.VI ? item.timeTypeDataPatient.valueVi : item.timeTypeDataPatient.valueEn}</td>                                      
-                                            <td>{item.date}</td>                                      
-                                            <td className='btn-actions'>
-                                                <button className='btn btn-success' onClick={(e) => this.handleEditUser(e)}>Xác nhận</button>
-                                                <button className='btn btn-warning' onClick={(e) => this.handleDeleteUser(e)}>Gửi hóa đơn</button>
-                                            </td>
-                                        </tr>
-                                    )
-                                })
-                            }
-                        </tbody>
-                    </table>
+            <LoadingOverlay
+            active={this.state.isShowLoading}
+            spinner={true}
+            text="Loading..."
+            >
+                <div className='manage-patient-container'>
+                    <div className='container'>
+                        <div className='title'><FormattedMessage id="menu.doctor.manage-patient" /></div>
+                        <div className='form-group col-4'>
+                            <label>Chọn ngày khám bệnh</label>
+                            <DatePicker 
+                                className='form-control'
+                                onChange={this.handleOnchangeDatePicker}
+                                value={this.state.currentDate}
+                            />
+                        </div>
+                        <div className='col-12'>
+                        <table id="table-manage-patient">
+                            <tbody>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Fullname</th>
+                                    <th>PhoneNumber</th>
+                                    <th>Address</th>
+                                    <th>Giới tính</th>
+                                    <th>Thời gian khám</th>
+                                    <th>Ngày khám</th>
+                                    <th>Actions</th>
+                                </tr>
+                                {
+                                    listPatient && listPatient.length > 0 ?
+                                    listPatient.map((item, index) => {
+                                        return (
+                                            <tr key={index}>
+                                                <td>{index+1}</td>
+                                                <td>{item.fullname}</td>
+                                                <td>{item.phonenumber}</td>
+                                                <td>{item.patientData && item.patientData.address}</td>
+                                                <td>{item.patientData && item.patientData.genderData && this.props.language === LANGUAGES.VI ? item.patientData.genderData.valueVi : item.patientData.genderData.valueEn}</td>
+                                                <td>{item.timeTypeDataPatient && this.props.language === LANGUAGES.VI ? item.timeTypeDataPatient.valueVi : item.timeTypeDataPatient.valueEn}</td>                                      
+                                                <td>{item.date}</td>                                      
+                                                <td className='btn-actions'>
+                                                    <button className='btn btn-success' onClick={() => this.handleConfirm(item)}>Gửi hóa đơn</button>
+                                                </td>
+                                            </tr>
+                                        )
+                                    }) : <tr>
+                                        <td colSpan={8} className={'text-center'}>No Data</td>
+                                    </tr>
+                                }
+                                {/* {
+                                    listPatient && listPatient.length === 0 && <td colSpan={8} className={'text-center'}>No Data</td>
+                                } */}
+                            </tbody>
+                        </table>
+                        </div>
                     </div>
                 </div>
-            </div>
+
+                <RemedyModal
+                    isOpen={isOpen}
+                    dataModal={dataModal}
+                    handleCloseModal={this.handleCloseModal}
+                    sendRemedy={this.sendRemedy}
+                />
+            </LoadingOverlay>
         );
     }
 }
