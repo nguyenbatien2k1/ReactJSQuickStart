@@ -100,6 +100,11 @@ const userService = {
     postSendRemedy(data) {
         return axios.post(`/api/send-remedy`, data)
     },
+
+    postCreateHandbook(data) {
+        return axios.post(`/api/create-handbook`, data)
+    },
+
 }
 
 export default userService;

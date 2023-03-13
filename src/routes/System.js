@@ -9,6 +9,7 @@ import ManageSpecialty from '../containers/System/Specialty/ManageSpecialty';
 import ManageClinic from '../containers/System/Clinic/ManageClinic';
 import { USER_ROLE } from '../utils';
 import ManageSchedule from '../containers/System/Doctor/ManageSchedule';
+import ManageHandBook from '../containers/System/Handbook/ManageHandBook';
 
 class System extends Component {
 
@@ -47,6 +48,7 @@ class System extends Component {
                                         <Route path="/system/manage-doctor" component={ManageDoctor} />
                                         <Route path="/system/manage-specialty" component={ManageSpecialty} />
                                         <Route path="/system/manage-clinic" component={ManageClinic} />
+                                        <Route path="/system/manage-handbook" component={ManageHandBook} />
                                         <Route component={() => { return (<Redirect to={systemMenuPath} />) }} />
                                     </Switch>
                                 </div>

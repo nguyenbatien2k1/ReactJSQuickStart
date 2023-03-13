@@ -10,7 +10,7 @@ class About extends Component {
 
         return (
             <div className='section-share section-about'>
-                <div className='section-about-header'>Truyền thông nói gì về Tiên Basic ?</div>
+                <div className='section-about-header'>Truyền thông nói gì về chúng tôi ?</div>
                 <div className='section-about-content'>
                     <div className='content-left'>
                         <iframe width="100%" height="320px" src="https://www.youtube.com/embed/I0KUKXGDxuU" title="tích phân 4 ẩn dạng phân số" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
