@@ -105,6 +105,14 @@ const userService = {
         return axios.post(`/api/create-handbook`, data)
     },
 
+    getDetailHandbookById(handbookId) {
+        return axios.get(`/api/get-detail-handbook-by-id?handbookId=${handbookId}`)
+    },
+
+    getAllHandbook() {
+        return axios.get(`/api/get-all-handbook`)
+    },
+
 }
 
 export default userService;
